@@ -1,11 +1,11 @@
-#include <stdlib.h>
-#include <unistd.h>
 #include "mosh_prompt.h"
 #include "mosh_get_input.h"
+#include "mosh_lexer.h"
 #include "libft.h"
 
-void	do_commandline_loop(void){
+static void	commandline_loop(void){
 	char	*src;
+	t_token	*token;
 
 	while (1)
 	{
@@ -13,13 +13,13 @@ void	do_commandline_loop(void){
 		src = get_input();
 		if (src != NULL)
 		{
-			write(1, src, ft_strlen(src));
+			token = lexer(src);
 			free(src);
 		}
 	}
 }
 
 int	main(void){
-	do_commandline_loop();
+	commandline_loop();
 	return (0);
 }
