@@ -2,19 +2,19 @@
 #define MOSH_LEXER_H
 #include <stddef.h>
 typedef enum{
-	NONE,
-	WORD,
-	ASSIGNMENT_WORD,
-	NAME,
-	NEWLINE,
-	IO_NUMBER,
-	PIPE,
-	LESS,		/* '<' */
-	GREAT,		/* '>' */
 	DLESS,		/* '<<' */
 	DGREAT,		/* '>>' */
 	LESSAND,	/* '<&' */
-	GREATAND	/* '>&' */
+	GREATAND,	/* '>&' */
+	ASSIGNMENT_WORD,	/* '=' */
+	NEWLINE,	/* '\n' */
+	PIPE,		/* '|' */
+	LESS,		/* '<' */
+	GREAT,		/* '>' */
+	IO_NUMBER,
+	WORD,
+	NAME,
+	NONE
 }	e_token_type;
 typedef struct s_token{
 	e_token_type	type;
@@ -22,12 +22,16 @@ typedef struct s_token{
 	struct s_token	*next;
 }	t_token;
 typedef struct	s_lexer{
+	e_token_type	token_type;
 	int		state;
 	char	*src;
+	char	token_table[9][3];
 	size_t	current_pos;
 	size_t	word_start_pos;
 }	t_lexer;
 t_token *lexer(char	*);
-void	change_word_to_token(t_lexer *lexer, t_token **token);
-void	print_token(t_token *token);
+void	init_lexer(t_lexer *, char **);
+void	change_word_to_token(t_lexer *, t_token **);
+void	set_lexer_state(t_lexer *);
+void	print_token(t_token *);
 #endif

@@ -2,6 +2,7 @@
 #include "mosh_get_input.h"
 #include "mosh_lexer.h"
 #include "libft.h"
+#include <stdio.h>
 
 static void	commandline_loop(void){
 	char	*src;

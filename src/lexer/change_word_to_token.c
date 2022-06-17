@@ -1,26 +1,17 @@
 #include "mosh_lexer.h"
 #include "libft.h"
+#include <stdio.h>
 
-void print_token(t_token *token)
+static t_token	*create_new_token(t_lexer *lexer)
 {
-	while (token != NULL)
-	{
-		printf("%s\n", token->value);
-		token = token->next;
-	}
-}
-
-t_token	*create_new_token(t_lexer *lexer)
-{
-	int	word_width;
+	int	len;
 	t_token	*new_token;
 
 	new_token = (t_token *)malloc(sizeof(t_token));
 	new_token->next = NULL;
-	new_token->value = NULL;
-	new_token->type = NONE;
-	word_width = lexer->current_pos - lexer->word_start_pos;
-	new_token->value = ft_substr(lexer->src, lexer->word_start_pos,word_width);
+	new_token->type = lexer->token_type;
+	len = lexer->current_pos - lexer->word_start_pos;
+	new_token->value = ft_substr(lexer->src, lexer->word_start_pos, len);
 	return (new_token);
 }
 
