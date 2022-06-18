@@ -2,21 +2,23 @@
 #include "libft.h"
 #define WHITE_SPACE 1
 #define READ_WORD 2
-#define READ_OPERATOR_WORD 3
-#define STRING_END 4
-#define ERROR 5
+#define STRING_END 3
+#define ERROR 4
+#include <stdio.h>
 
 int	get_token_type(t_lexer *l, size_t chr_pos)
 {
 	int			i;
 	int			result;
 	const char	*find;
+	char		*target;
 
 	i = 0;
 	while (i <= GREAT)
 	{
 		find = (const char*)(l->src + chr_pos);
-		result = ft_strncmp(find, l->token_table[i], ft_strlen(l->token_table[i]));
+		target = l->token_table[i];
+		result = ft_strncmp(find, target, ft_strlen(target));
 		if (result == 0)
 			return (i);
 		i++;
@@ -48,18 +50,18 @@ static void	skip_whitespace(t_lexer *lexer)
 	}
 }
 
-static void	get_word_info(t_lexer *lexer)
+static void	get_word_len_and_token_type(t_lexer *lexer)
 {
 	int	token_type;
+
 	if (lexer->state != READ_WORD)
 		return ;
 	lexer->word_start_pos = lexer->current_pos;
 	token_type = get_token_type(lexer, lexer->current_pos);
 	if (token_type != WORD)
 	{
+		lexer->current_pos++;
 		if (DLESS <= token_type && token_type <= GREATAND)
-			lexer->current_pos = lexer->current_pos + 2;
-		else
 			lexer->current_pos++;
 		lexer->token_type = token_type;
 		set_lexer_state(lexer);
@@ -77,15 +79,16 @@ static void	get_word_info(t_lexer *lexer)
 t_token	*lexer(char *src)
 {
 	t_lexer	lexer;
-	t_token	*token_list;
+	t_token	*token;
 
-	token_list = NULL;
+	token = NULL;
 	init_lexer(&lexer, &src);
 	while (lexer.state != STRING_END)
 	{
 		skip_whitespace(&lexer);
-		get_word_info(&lexer);
-		change_word_to_token(&lexer, &token_list);
+		get_word_len_and_token_type(&lexer);
+		change_word_to_token(&lexer, &token);
 	}
-	return (token_list);
+	set_io_number(token);
+	return (token);
 }

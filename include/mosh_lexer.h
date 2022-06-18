@@ -25,7 +25,7 @@ typedef struct	s_lexer{
 	e_token_type	token_type;
 	int		state;
 	char	*src;
-	char	token_table[9][3];
+	char	token_table[12][10];
 	size_t	current_pos;
 	size_t	word_start_pos;
 }	t_lexer;
@@ -33,5 +33,6 @@ t_token *lexer(char	*);
 void	init_lexer(t_lexer *, char **);
 void	change_word_to_token(t_lexer *, t_token **);
 void	set_lexer_state(t_lexer *);
-void	print_token(t_token *);
+void	print_token(t_token *, t_lexer *);
+void	set_io_number(t_token *);
 #endif

@@ -13,25 +13,25 @@ LIBFT_FULLNAME		=	$(LIBFT_DIR)/$(LIBFT_NAME)
 
 OBJ_DIR 			=	./obj/mosh
 
-MAIN_SRC			=	main.c
-MAIN_DIR 			=	./src/main
-MAIN_SRC_FULLNAME	=	$(addprefix ./src/main/, $(MAIN_SRC))
-MAIN_OBJ			=	main.o
-MAIN_OBJ_FULLNAME	=	$(addprefix ./obj/mosh/, $(MAIN_OBJ))
+MAIN_SRC				=	main.c
+MAIN_DIR 				=	./src/main
+MAIN_SRC_FULLNAME		=	$(addprefix ./src/main/, $(MAIN_SRC))
+MAIN_OBJ				=	main.o
+MAIN_OBJ_FULLNAME		=	$(addprefix ./obj/mosh/, $(MAIN_OBJ))
 
-PROMPT_SRC			=	prompt.c
-PROMPT_DIR			=	./src/prompt
-PROMPT_SRC_FULLNAME	=	$(addprefix ./src/prompt/, $(PROMPT_SRC))
-PROMPT_OBJ			=	prompt.o
-PROMPT_OBJ_FULLNAME	=	$(addprefix ./obj/mosh/, $(PROMPT_OBJ))
+PROMPT_SRC				=	prompt.c
+PROMPT_DIR				=	./src/prompt
+PROMPT_SRC_FULLNAME		=	$(addprefix ./src/prompt/, $(PROMPT_SRC))
+PROMPT_OBJ				=	$(PROMPT_SRC:.c=.o)
+PROMPT_OBJ_FULLNAME		=	$(addprefix ./obj/mosh/, $(PROMPT_OBJ))
 
 GET_INPUT_SRC			=	get_input.c get_next_line.c
 GET_INPUT_DIR			=	./src/get_input
 GET_INPUT_SRC_FULLNAME	=	$(addprefix ./src/get_input/, $(GET_INPUT_SRC))
-GET_INPUT_OBJ			=	get_input.o get_next_line.o
+GET_INPUT_OBJ			=	$(GET_INPUT_SRC:.c=.o)
 GET_INPUT_OBJ_FULLNAME	=	$(addprefix ./obj/mosh/, $(GET_INPUT_OBJ))
 
-LEXER_SRC				=	lexer.c init_lexer.c change_word_to_token.c
+LEXER_SRC				=	lexer.c init_lexer.c change_word_to_token.c set_io_number.c
 LEXER_DIR				=	./src/lexer
 LEXER_SRC_FULLNAME		=	$(addprefix ./src/lexer/, $(LEXER_SRC))
 LEXER_OBJ				=	$(LEXER_SRC:.c=.o)
