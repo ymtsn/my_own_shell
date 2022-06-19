@@ -6,11 +6,11 @@ typedef enum{
 	DGREAT,		/* '>>' */
 	LESSAND,	/* '<&' */
 	GREATAND,	/* '>&' */
+	LESS,		/* '<' */
+	GREAT,		/* '>' */
 	ASSIGNMENT_WORD,	/* '=' */
 	NEWLINE,	/* '\n' */
 	PIPE,		/* '|' */
-	LESS,		/* '<' */
-	GREAT,		/* '>' */
 	IO_NUMBER,
 	WORD,
 	NAME,

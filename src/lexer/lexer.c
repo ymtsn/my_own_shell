@@ -14,7 +14,7 @@ int	get_token_type(t_lexer *l, size_t chr_pos)
 	char		*target;
 
 	i = 0;
-	while (i <= GREAT)
+	while (i <= PIPE)
 	{
 		find = (const char*)(l->src + chr_pos);
 		target = l->token_table[i];

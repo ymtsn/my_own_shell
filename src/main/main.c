@@ -1,6 +1,7 @@
 #include "mosh_prompt.h"
 #include "mosh_get_input.h"
 #include "mosh_lexer.h"
+#include "mosh_parser.h"
 #include "libft.h"
 #include <stdio.h>
 
@@ -16,6 +17,8 @@ static void	commandline_loop(void){
 		{
 			token = lexer(src);
 			free(src);
+			parser(&token);
+			return ;
 		}
 	}
 }

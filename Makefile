@@ -37,15 +37,26 @@ LEXER_SRC_FULLNAME		=	$(addprefix ./src/lexer/, $(LEXER_SRC))
 LEXER_OBJ				=	$(LEXER_SRC:.c=.o)
 LEXER_OBJ_FULLNAME		=	$(addprefix ./obj/mosh/, $(LEXER_OBJ))
 
+PARSER_SRC				=	parser.c parser_node.c
+PARSER_DIR				=	./src/parser
+PARSER_SRC_FULLNAME		=	$(addprefix ./src/parser/, $(PARSER_SRC))
+PARSER_OBJ				=	$(PARSER_SRC:.c=.o)
+PARSER_OBJ_FULLNAME		=	$(addprefix ./obj/mosh/, $(PARSER_OBJ))
+
 OBJ_FILE_LIST			=	$(MAIN_OBJ_FULLNAME) \
 							$(PROMPT_OBJ_FULLNAME) \
 							$(GET_INPUT_OBJ_FULLNAME) \
-							$(LEXER_OBJ_FULLNAME)
+							$(LEXER_OBJ_FULLNAME) \
+							$(PARSER_OBJ_FULLNAME)
 
 all:make-libft $(NAME)
 
 $(NAME): $(OBJ_FILE_LIST) $(LIBFT_FULLNAME)
 	$(CC) $(COMPILE_FLGS) $(OBJ_FILE_LIST) $(LIBFT_FULLNAME) -o $(NAME)
+
+$(OBJ_DIR)/%.o:$(PARSER_DIR)/%.c
+	@mkdir -p $(OBJ_DIR)
+	$(CC) $(COMPILE_FLGS) -c $^ -o $@
 
 $(OBJ_DIR)/%.o:$(LEXER_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)
