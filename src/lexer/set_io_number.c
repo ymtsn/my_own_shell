@@ -3,8 +3,7 @@
 
 static int	find_redirect(int type)
 {
-	if (type == DLESS || type == DGREAT || type == LESSAND \
-	|| type == GREATAND || type == LESS || type == GREAT)
+	if (type == DLESS || type == DGREAT || type == LESSAND || type == GREATAND || type == LESS || type == GREAT)
 		return (1);
 	return (0);
 }

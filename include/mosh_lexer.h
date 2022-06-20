@@ -12,7 +12,7 @@ typedef enum{
 	NEWLINE,	/* '\n' */
 	PIPE,		/* '|' */
 	IO_NUMBER,
-	WORD,
+	WORD_TOKEN,
 	NAME,
 	NONE
 }	e_token_type;

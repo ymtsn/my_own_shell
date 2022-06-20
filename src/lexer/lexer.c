@@ -23,7 +23,7 @@ int	get_token_type(t_lexer *l, size_t chr_pos)
 			return (i);
 		i++;
 	}
-	return (WORD);
+	return (WORD_TOKEN);
 }
 
 void	set_lexer_state(t_lexer *lexer)
@@ -58,7 +58,7 @@ static void	get_word_len_and_token_type(t_lexer *lexer)
 		return ;
 	lexer->word_start_pos = lexer->current_pos;
 	token_type = get_token_type(lexer, lexer->current_pos);
-	if (token_type != WORD)
+	if (token_type != WORD_TOKEN)
 	{
 		lexer->current_pos++;
 		if (DLESS <= token_type && token_type <= GREATAND)
@@ -67,13 +67,13 @@ static void	get_word_len_and_token_type(t_lexer *lexer)
 		set_lexer_state(lexer);
 		return ;
 	}
-	while (token_type == WORD && lexer->state == READ_WORD)
+	while (token_type == WORD_TOKEN && lexer->state == READ_WORD)
 	{
 		lexer->current_pos++;
 		token_type = get_token_type(lexer, lexer->current_pos);
 		set_lexer_state(lexer);
 	}
-	lexer->token_type = WORD;
+	lexer->token_type = WORD_TOKEN;
 }
 
 t_token	*lexer(char *src)

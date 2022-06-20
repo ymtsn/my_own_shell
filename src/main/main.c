@@ -18,7 +18,6 @@ static void	commandline_loop(void){
 			token = lexer(src);
 			free(src);
 			parser(&token);
-			return ;
 		}
 	}
 }

@@ -1,5 +1,6 @@
 #include <stddef.h>
 #include "mosh_parser.h"
+#include "mosh_debug.h"
 #include <stdio.h>
 
 /* void	here_end(t_token *token, t_pnode *pnode)
@@ -14,9 +15,9 @@ t_pnode	*filename(t_token *token)
 {
 	t_pnode *pnode;
 
-	if (token->type != WORD)
+	if (token->type != WORD_TOKEN)
 		return (NULL);
-	pnode = create_new_pnode(FILENAME);
+	pnode = create_new_pnode(FILENAME, token->type);
 	pnode->value = token->value;
 	return (pnode);
 }
@@ -32,12 +33,12 @@ t_pnode	*io_file(t_token *token)
 		return (NULL) ;
 	type = token->type;
 	next_type = token->next->type;
-	if ((DLESS <= type && type <= GREAT) && (next_type == WORD))
+	if ((DLESS <= type && type <= GREAT) && (next_type == WORD_TOKEN))
 	{
 		child = filename(token->next);
 		if (child == NULL)
 			return (NULL);
-		parent = create_new_pnode(IO_FILE);
+		parent = create_new_pnode(IO_FILE, token->type);
 		parent->value = token->value;
 		parent->child = child;
 		return (parent);
@@ -57,7 +58,7 @@ t_pnode	*io_redirect(t_token *token)
 		return (NULL);
 	if (token->type != IO_NUMBER)
 		return (child);
-	parent = create_new_pnode(IO_REDIRECT);
+	parent = create_new_pnode(IO_REDIRECT, token->type);
 	parent->value = token->value;
 	parent->child = child;
 	return (parent);
@@ -72,13 +73,13 @@ t_pnode	*cmd_prefix(t_token **token)
 	size_t	size;
 
 	child = io_redirect(*token);
-	parent = create_new_pnode(CMD_PREFIX);
+	parent = create_new_pnode(CMD_PREFIX, NONE);
 	save_parent = parent;
 	while (child != NULL)
 	{
 		if (parent->child != NULL)
 		{
-			parent->sibling = create_new_pnode(CMD_PREFIX);
+			parent->sibling = create_new_pnode(CMD_PREFIX, NONE);
 			parent = parent->sibling;
 		}
 		parent->child = child;
@@ -97,9 +98,9 @@ t_pnode *cmd_word(t_token **token)
 {
 	t_pnode *pnode;
 
-	if ((*token)->type != WORD)
+	if ((*token)->type != WORD_TOKEN)
 		return (NULL);
-	pnode = create_new_pnode(CMD_WORD);
+	pnode = create_new_pnode(CMD_WORD, (*token)->type);
 	pnode->value = (*token)->value;
 	*token = (*token)->next;
 	return (pnode);
@@ -110,10 +111,10 @@ t_pnode *word(t_token *token)
 	t_pnode *parent;
 	t_pnode *child;
 
-	if (token == NULL || token->type != WORD)
+	if (token == NULL || token->type != WORD_TOKEN)
 		return (NULL);
 	child = word(token->next);
-	parent = create_new_pnode(CMD_WORD);
+	parent = create_new_pnode(WORD, token->type);
 	parent->child = child;
 	parent->value = token->value;
 	return (parent);
@@ -129,13 +130,13 @@ t_pnode	*cmd_suffix(t_token **token)
 	child = io_redirect(*token);
 	if (child == NULL)
 			child = word(*token);
-	parent = create_new_pnode(CMD_SUFFIX);
+	parent = create_new_pnode(CMD_SUFFIX, NONE);
 	save_parent = parent;
 	while (child != NULL)
 	{
 		if (parent->child != NULL)
 		{
-			parent->sibling = create_new_pnode(CMD_SUFFIX);
+			parent->sibling = create_new_pnode(CMD_SUFFIX, NONE);
 			parent = parent->sibling;
 		}
 		parent->child = child;
@@ -156,11 +157,11 @@ t_pnode	*simple_command(t_token **token)
 {
 	t_pnode	*parent;
 
-	parent = create_new_pnode(SIMPLE_COMMAND);
+	parent = create_new_pnode(SIMPLE_COMMAND, NONE);
 	parent->child = cmd_prefix(token);
-	parent->sibling = create_new_pnode(SIMPLE_COMMAND);
+	parent->sibling = create_new_pnode(SIMPLE_COMMAND, NONE);
 	parent->sibling->child = cmd_word(token);
-	parent->sibling->sibling =  create_new_pnode(SIMPLE_COMMAND);
+	parent->sibling->sibling =  create_new_pnode(SIMPLE_COMMAND, NONE);
 	parent->sibling->sibling->child = cmd_suffix(token);
 	return (parent);
 }

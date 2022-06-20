@@ -38,7 +38,7 @@ static void	set_lexer_token_table(t_lexer *lexer)
 	(void)ft_strlcpy(lexer->token_table[GREAT], ">",2);
 	(void)ft_strlcpy(lexer->token_table[IO_NUMBER], "io_number",10);
 	(void)ft_strlcpy(lexer->token_table[NAME], "name",5);
-	(void)ft_strlcpy(lexer->token_table[WORD], "word",5);
+	(void)ft_strlcpy(lexer->token_table[WORD_TOKEN], "word",5);
 }
 
 void	init_lexer(t_lexer *lexer, char **src)
