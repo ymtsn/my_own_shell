@@ -6,18 +6,19 @@
 #include <stdio.h>
 
 static void	commandline_loop(void){
-	char	*src;
+	char	*src = "ls -l -a | echo ";
 	t_token	*token;
 
 	while (1)
 	{
-		prompt();
-		src = get_input();
+	/* 	prompt();
+		src = get_input(); */
 		if (src != NULL)
 		{
 			token = lexer(src);
-			free(src);
+			/* free(src); */
 			parser(&token);
+			return ;
 		}
 	}
 }

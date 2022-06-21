@@ -15,7 +15,7 @@ t_pnode	*filename(t_token *token)
 {
 	t_pnode *pnode;
 
-	if (token->type != WORD_TOKEN)
+	if (token == NULL || token->type != WORD_TOKEN)
 		return (NULL);
 	pnode = create_new_pnode(FILENAME, token->type);
 	pnode->value = token->value;
@@ -26,14 +26,10 @@ t_pnode	*io_file(t_token *token)
 {
 	t_pnode	*child;
 	t_pnode *parent;
-	int		type;
-	int		next_type;
 
 	if (token == NULL || token->next == NULL)
 		return (NULL) ;
-	type = token->type;
-	next_type = token->next->type;
-	if ((DLESS <= type && type <= GREAT) && (next_type == WORD_TOKEN))
+	if (DLESS <= token->type && token->type <= GREAT)
 	{
 		child = filename(token->next);
 		if (child == NULL)
@@ -111,7 +107,7 @@ t_pnode *word(t_token *token)
 	t_pnode *parent;
 	t_pnode *child;
 
-	if (token == NULL || token->type != WORD_TOKEN)
+	if (token == NULL ||  token->type != WORD_TOKEN)
 		return (NULL);
 	child = word(token->next);
 	parent = create_new_pnode(WORD, token->type);
@@ -169,8 +165,19 @@ t_pnode	*simple_command(t_token **token)
 t_pnode	*pipeline(t_token **token)
 {
 	t_pnode	*parent;
-	parent = simple_command(token);
-	return (parent);
+	t_pnode	*save_parent;
+
+	parent = create_new_pnode(PIPELINE, NONE);
+	save_parent = parent;
+	parent->child = simple_command(token);
+	while (*token != NULL && (*token)->type == PIPE)
+	{
+		parent->sibling = create_new_pnode(PIPELINE, NONE);
+		parent = parent->sibling;
+		*token = (*token)->next;
+		parent->child = simple_command(token);
+	}
+	return (save_parent);
 }
 
 void	parser(t_token **token)

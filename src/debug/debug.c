@@ -10,7 +10,7 @@ static void	init_node_type_table(char table[10][15])
 	(void)ft_strlcpy(table[CMD_PREFIX], "CMD_PREFIX", 15);
 	(void)ft_strlcpy(table[CMD_SUFFIX], "CMD_SUFFIX", 15);
 	(void)ft_strlcpy(table[CMD_WORD], "CMD_WORD", 15);
-	(void)ft_strlcpy(table[WORD], "WORD", 15);
+	(void)ft_strlcpy(table[WORD], "WORD\t", 15);
 	(void)ft_strlcpy(table[IO_REDIRECT], "IO_REDIRECT", 15);
 	(void)ft_strlcpy(table[IO_FILE], "IO_FILE", 15);
 	(void)ft_strlcpy(table[FILENAME], "FILENAME", 15);
@@ -35,33 +35,37 @@ static void	init_token_type_table(char table[12][10])
 	(void)ft_strlcpy(table[NONE], "none",5);
 }
 
+void	traverse_child(t_pnode *pnode, char node[10][15], char token[12][10])
+{
+	while (pnode != NULL)
+	{
+		printf("value: %s\t", pnode->value);
+		printf("node_type: %s\t", node[pnode->node_type]);
+		printf("token_type: %s\n", token[pnode->token_type]);
+		pnode = pnode->child;
+	}
+}
+
+void	traverse_sibling(t_pnode *pnode, char node[10][15], char token[12][10])
+{
+	int	type;
+	while (pnode != NULL)
+	{
+		type = pnode->node_type;
+		if (type == CMD_PREFIX || type == CMD_WORD || type == CMD_SUFFIX)
+			traverse_child(pnode, node, token);
+		else
+			traverse_sibling(pnode->child, node, token);
+		pnode = pnode->sibling;
+	}
+}
+
 void	print_pnode(t_pnode *pnode)
 {
-	t_pnode	*sibling;
-	t_pnode	*sibling_child;
-	t_pnode	*sibling_child_sibling;
-	char	n_table[11][15];
-	char	t_table[12][10];
+	char	node[11][15];
+	char	token[12][10];
 
-	init_node_type_table(n_table);
-	init_token_type_table(t_table);
-	sibling = pnode;
-	while (sibling != NULL)
-	{
-		sibling_child = sibling->child;
-		sibling_child_sibling = sibling_child;
-		while (sibling_child_sibling != NULL)
-		{
-			while (sibling_child != NULL)
-			{
-				printf("value:\t%s\t", sibling_child->value);
-				printf("node_type:\t%s\t\t", n_table[sibling_child->node_type]);
-				printf("token_type:\t%s\n", t_table[sibling_child->token_type]);
-				sibling_child = sibling_child->child;
-			}
-			sibling_child_sibling = sibling_child_sibling->sibling;
-			sibling_child = sibling_child_sibling;
-		}
-		sibling = sibling->sibling;
-	}
+	init_node_type_table(node);
+	init_token_type_table(token);
+	traverse_sibling(pnode, node, token);
 }

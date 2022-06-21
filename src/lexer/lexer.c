@@ -86,9 +86,13 @@ t_token	*lexer(char *src)
 	while (lexer.state != STRING_END)
 	{
 		skip_whitespace(&lexer);
-		get_word_len_and_token_type(&lexer);
-		change_word_to_token(&lexer, &token);
+		if (lexer.state != STRING_END)
+		{
+			get_word_len_and_token_type(&lexer);
+			change_word_to_token(&lexer, &token);
+		}
 	}
+	print_token(token, &lexer);
 	set_io_number(token);
 	return (token);
 }
