@@ -27,18 +27,20 @@ void	print_token(t_token *token, t_lexer *lexer)
 
 static void	set_lexer_token_table(t_lexer *lexer)
 {
-	(void)ft_strlcpy(lexer->token_table[DLESS], "<<",3);
-	(void)ft_strlcpy(lexer->token_table[DGREAT], ">>",3);
-	(void)ft_strlcpy(lexer->token_table[LESSAND], "<&",3);
-	(void)ft_strlcpy(lexer->token_table[GREATAND], ">&",3);
-	(void)ft_strlcpy(lexer->token_table[ASSIGNMENT_WORD], "=\0",3);
-	(void)ft_strlcpy(lexer->token_table[NEWLINE], "\n",2);
-	(void)ft_strlcpy(lexer->token_table[PIPE], "|",2);
-	(void)ft_strlcpy(lexer->token_table[LESS], "<",2);
-	(void)ft_strlcpy(lexer->token_table[GREAT], ">",2);
-	(void)ft_strlcpy(lexer->token_table[IO_NUMBER], "io_number",10);
-	(void)ft_strlcpy(lexer->token_table[NAME], "name",5);
-	(void)ft_strlcpy(lexer->token_table[WORD_TOKEN], "word",5);
+	(void)ft_strlcpy(lexer->token_table[DLESS], "<<", 3);
+	(void)ft_strlcpy(lexer->token_table[DGREAT], ">>", 3);
+	(void)ft_strlcpy(lexer->token_table[DGREATAND], ">>&", 4);
+	(void)ft_strlcpy(lexer->token_table[GREATAND], ">&", 3);
+	(void)ft_strlcpy(lexer->token_table[LESSAND], "<&", 3);
+	(void)ft_strlcpy(lexer->token_table[ANDGREAT], "&>", 3);
+	(void)ft_strlcpy(lexer->token_table[ASSIGNMENT_WORD], "=", 2);
+	(void)ft_strlcpy(lexer->token_table[NEWLINE], "\n", 2);
+	(void)ft_strlcpy(lexer->token_table[PIPE], "|", 2);
+	(void)ft_strlcpy(lexer->token_table[LESS], "<", 2);
+	(void)ft_strlcpy(lexer->token_table[GREAT], ">", 2);
+	(void)ft_strlcpy(lexer->token_table[IO_NUMBER], "io_number", 10);
+	(void)ft_strlcpy(lexer->token_table[NAME], "name", 5);
+	(void)ft_strlcpy(lexer->token_table[WORD_TOKEN], "word", 5);
 }
 
 void	init_lexer(t_lexer *lexer, char **src)

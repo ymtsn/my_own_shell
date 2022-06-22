@@ -6,7 +6,7 @@
 #include <stdio.h>
 
 static void	commandline_loop(void){
-	char	*src = "ls -l -a | echo ";
+	char	*src = "command >> file";
 	t_token	*token;
 
 	while (1)

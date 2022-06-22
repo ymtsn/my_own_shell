@@ -27,7 +27,7 @@ t_pnode	*io_file(t_token *token)
 	t_pnode	*child;
 	t_pnode *parent;
 
-	if (token == NULL || token->next == NULL)
+	if (token == NULL)
 		return (NULL) ;
 	if (DLESS <= token->type && token->type <= GREAT)
 	{
@@ -47,12 +47,13 @@ t_pnode	*io_redirect(t_token *token)
 	t_pnode	*child;
 	t_pnode *parent;
 
-	if (token == NULL || token->next == NULL)
+	if (token == NULL)
 		return (NULL) ;
-	child = io_file(token->next);
-	if (child == NULL)
-		return (NULL);
-	if (token->type != IO_NUMBER)
+	if (token->type == IO_NUMBER)
+		child = io_file(token->next);
+	else
+		child = io_file(token);
+	if (child == NULL || token->type != IO_NUMBER)
 		return (child);
 	parent = create_new_pnode(IO_REDIRECT, token->type);
 	parent->value = token->value;

@@ -4,6 +4,8 @@
 typedef enum{
 	DLESS,		/* '<<' */
 	DGREAT,		/* '>>' */
+	DGREATAND,	/* '&>>' */
+	ANDGREAT,	/* '&>' */
 	LESSAND,	/* '<&' */
 	GREATAND,	/* '>&' */
 	LESS,		/* '<' */
@@ -25,7 +27,7 @@ typedef struct	s_lexer{
 	e_token_type	token_type;
 	int		state;
 	char	*src;
-	char	token_table[12][10];
+	char	token_table[14][10];
 	size_t	current_pos;
 	size_t	word_start_pos;
 }	t_lexer;

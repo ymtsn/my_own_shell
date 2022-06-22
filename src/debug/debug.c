@@ -18,12 +18,14 @@ static void	init_node_type_table(char table[10][15])
 	(void)ft_strlcpy(table[HERE_END], "HERE_END", 15);
 }
 
-static void	init_token_type_table(char table[12][10])
+static void	init_token_type_table(char table[14][10])
 {
 	(void)ft_strlcpy(table[DLESS], "<<",3);
 	(void)ft_strlcpy(table[DGREAT], ">>",3);
+	(void)ft_strlcpy(table[DGREATAND], ">>&", 4);
 	(void)ft_strlcpy(table[LESSAND], "<&",3);
 	(void)ft_strlcpy(table[GREATAND], ">&",3);
+	(void)ft_strlcpy(table[ANDGREAT], "&>", 3);
 	(void)ft_strlcpy(table[ASSIGNMENT_WORD], "=\0",3);
 	(void)ft_strlcpy(table[NEWLINE], "\n",2);
 	(void)ft_strlcpy(table[PIPE], "|",2);
@@ -35,20 +37,25 @@ static void	init_token_type_table(char table[12][10])
 	(void)ft_strlcpy(table[NONE], "none",5);
 }
 
-void	traverse_child(t_pnode *pnode, char node[10][15], char token[12][10])
+void	traverse_child(t_pnode *pnode, char node[10][15], char token[14][10])
 {
+	int	node_type;
 	while (pnode != NULL)
 	{
-		printf("value: %s\t", pnode->value);
+		node_type = pnode->node_type;
+		if (node_type != CMD_PREFIX && node_type != CMD_WORD && node_type != CMD_SUFFIX)
+			printf(" ");
 		printf("node_type: %s\t", node[pnode->node_type]);
+		printf("value: %s\t", pnode->value);
 		printf("token_type: %s\n", token[pnode->token_type]);
 		pnode = pnode->child;
 	}
 }
 
-void	traverse_sibling(t_pnode *pnode, char node[10][15], char token[12][10])
+void	traverse_sibling(t_pnode *pnode, char node[10][15], char token[14][10])
 {
 	int	type;
+
 	while (pnode != NULL)
 	{
 		type = pnode->node_type;
@@ -63,7 +70,7 @@ void	traverse_sibling(t_pnode *pnode, char node[10][15], char token[12][10])
 void	print_pnode(t_pnode *pnode)
 {
 	char	node[11][15];
-	char	token[12][10];
+	char	token[14][10];
 
 	init_node_type_table(node);
 	init_token_type_table(token);
