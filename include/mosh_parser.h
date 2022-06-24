@@ -1,13 +1,12 @@
 #ifndef MOSH_PARSER_H
 #define MOSH_PARSER_H
-#include "mosh_lexer.h"
 typedef enum {
 	PIPELINE,
 	SIMPLE_COMMAND,
 	CMD_PREFIX,
 	CMD_SUFFIX,
 	CMD_WORD,
-	WORD,
+	ARG_WORD,
 	IO_REDIRECT,
 	IO_FILE,
 	FILENAME,
@@ -20,8 +19,8 @@ typedef struct s_pnode{
 	e_node_type		node_type;
 	struct s_pnode	*child;
 	struct s_pnode	*sibling;
-} t_pnode;
-void	parser(t_token **);
-t_pnode	*create_new_pnode(e_node_type, e_token_type);
-size_t	child_listsize(t_pnode *);
+} t_cmdlst;
+t_cmdlst	*parser(t_token **);
+t_cmdlst	*create_new_pnode(e_node_type, e_token_type);
+size_t	child_listsize(t_cmdlst *);
 #endif

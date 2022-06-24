@@ -1,11 +1,12 @@
+#include "mosh_lexer.h"
 #include "mosh_parser.h"
 #include <stdlib.h>
 
-t_pnode	*create_new_pnode(e_node_type n_type, e_token_type t_type)
+t_cmdlst	*create_new_pnode(e_node_type n_type, e_token_type t_type)
 {
-	t_pnode	*pnode;
+	t_cmdlst	*pnode;
 
-	pnode = (t_pnode *)malloc(sizeof(t_pnode));
+	pnode = (t_cmdlst *)malloc(sizeof(t_cmdlst));
 	pnode->node_type = n_type;
 	pnode->token_type = t_type;
 	pnode->child = NULL;
@@ -14,7 +15,7 @@ t_pnode	*create_new_pnode(e_node_type n_type, e_token_type t_type)
 	return (pnode);
 }
 
-size_t	child_listsize(t_pnode *lst)
+size_t	child_listsize(t_cmdlst *lst)
 {
 	size_t	len;
 

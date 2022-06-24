@@ -92,7 +92,7 @@ t_token	*lexer(char *src)
 			change_word_to_token(&lexer, &token);
 		}
 	}
-	print_token(token, &lexer);
+/* 	print_token(token, &lexer); */
 	set_io_number(token);
 	return (token);
 }

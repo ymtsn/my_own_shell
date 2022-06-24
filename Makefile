@@ -43,6 +43,12 @@ PARSER_SRC_FULLNAME		=	$(addprefix ./src/parser/, $(PARSER_SRC))
 PARSER_OBJ				=	$(PARSER_SRC:.c=.o)
 PARSER_OBJ_FULLNAME		=	$(addprefix ./obj/mosh/, $(PARSER_OBJ))
 
+EXECUTER_SRC				=	executer.c executer_utils.c get_argv.c get_path.c
+EXECUTER_DIR				=	./src/executer
+EXECUTER_SRC_FULLNAME		=	$(addprefix ./src/executer/, $(EXECUTER_SRC))
+EXECUTER_OBJ				=	$(EXECUTER_SRC:.c=.o)
+EXECUTER_OBJ_FULLNAME		=	$(addprefix ./obj/mosh/, $(EXECUTER_OBJ))
+
 DEBUG_SRC				=	debug.c
 DEBUG_DIR				=	./src/debug
 DEBUG_SRC_FULLNAME		=	$(addprefix ./src/debug/, $(DEBUG_SRC))
@@ -54,6 +60,7 @@ OBJ_FILE_LIST			=	$(MAIN_OBJ_FULLNAME) \
 							$(GET_INPUT_OBJ_FULLNAME) \
 							$(LEXER_OBJ_FULLNAME) \
 							$(PARSER_OBJ_FULLNAME) \
+							$(EXECUTER_OBJ_FULLNAME) \
 							$(DEBUG_OBJ_FULLNAME)
 
 all:make-libft $(NAME)
@@ -78,6 +85,10 @@ $(OBJ_DIR)/%.o:$(LEXER_DIR)/%.c
 	$(CC) $(COMPILE_FLGS) -c $^ -o $@
 
 $(OBJ_DIR)/%.o:$(PARSER_DIR)/%.c
+	@mkdir -p $(OBJ_DIR)
+	$(CC) $(COMPILE_FLGS) -c $^ -o $@
+
+$(OBJ_DIR)/%.o:$(EXECUTER_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)
 	$(CC) $(COMPILE_FLGS) -c $^ -o $@
 

@@ -2,12 +2,14 @@
 #include "mosh_get_input.h"
 #include "mosh_lexer.h"
 #include "mosh_parser.h"
+#include "mosh_executer.h"
 #include "libft.h"
 #include <stdio.h>
 
 static void	commandline_loop(void){
-	char	*src = "command >> file";
+	char	*src = "ls -l -a";
 	t_token	*token;
+	t_cmdlst	*command_tree;
 
 	while (1)
 	{
@@ -17,7 +19,8 @@ static void	commandline_loop(void){
 		{
 			token = lexer(src);
 			/* free(src); */
-			parser(&token);
+			command_tree = parser(&token);
+			simple_command_execute(command_tree);
 			return ;
 		}
 	}

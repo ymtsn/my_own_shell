@@ -1,19 +1,20 @@
 #include <stddef.h>
+#include "mosh_lexer.h"
 #include "mosh_parser.h"
 #include "mosh_debug.h"
 #include <stdio.h>
 
-/* void	here_end(t_token *token, t_pnode *pnode)
+/* void	here_end(t_token *token, t_cmdlst *pnode)
 {
 }
-void	io_here(t_token *token, t_pnode *pnode)
+void	io_here(t_token *token, t_cmdlst *pnode)
 {
 	here_end(token, pnode);
 } */
 
-t_pnode	*filename(t_token *token)
+t_cmdlst	*filename(t_token *token)
 {
-	t_pnode *pnode;
+	t_cmdlst *pnode;
 
 	if (token == NULL || token->type != WORD_TOKEN)
 		return (NULL);
@@ -22,10 +23,10 @@ t_pnode	*filename(t_token *token)
 	return (pnode);
 }
 
-t_pnode	*io_file(t_token *token)
+t_cmdlst	*io_file(t_token *token)
 {
-	t_pnode	*child;
-	t_pnode *parent;
+	t_cmdlst	*child;
+	t_cmdlst *parent;
 
 	if (token == NULL)
 		return (NULL) ;
@@ -42,10 +43,10 @@ t_pnode	*io_file(t_token *token)
 	return (NULL);
 }
 
-t_pnode	*io_redirect(t_token *token)
+t_cmdlst	*io_redirect(t_token *token)
 {
-	t_pnode	*child;
-	t_pnode *parent;
+	t_cmdlst	*child;
+	t_cmdlst *parent;
 
 	if (token == NULL)
 		return (NULL) ;
@@ -62,11 +63,11 @@ t_pnode	*io_redirect(t_token *token)
 	/* io_here(token, pnode); */
 }
 
-t_pnode	*cmd_prefix(t_token **token)
+t_cmdlst	*cmd_prefix(t_token **token)
 {
-	t_pnode	*child;
-	t_pnode	*parent;
-	t_pnode	*save_parent;
+	t_cmdlst	*child;
+	t_cmdlst	*parent;
+	t_cmdlst	*save_parent;
 	size_t	size;
 
 	child = io_redirect(*token);
@@ -91,9 +92,9 @@ t_pnode	*cmd_prefix(t_token **token)
 	return (save_parent);
 }
 
-t_pnode *cmd_word(t_token **token)
+t_cmdlst *cmd_word(t_token **token)
 {
-	t_pnode *pnode;
+	t_cmdlst *pnode;
 
 	if ((*token)->type != WORD_TOKEN)
 		return (NULL);
@@ -103,25 +104,25 @@ t_pnode *cmd_word(t_token **token)
 	return (pnode);
 }
 
-t_pnode *word(t_token *token)
+t_cmdlst *word(t_token *token)
 {
-	t_pnode *parent;
-	t_pnode *child;
+	t_cmdlst *parent;
+	t_cmdlst *child;
 
 	if (token == NULL ||  token->type != WORD_TOKEN)
 		return (NULL);
 	child = word(token->next);
-	parent = create_new_pnode(WORD, token->type);
+	parent = create_new_pnode(ARG_WORD, token->type);
 	parent->child = child;
 	parent->value = token->value;
 	return (parent);
 }
 
-t_pnode	*cmd_suffix(t_token **token)
+t_cmdlst	*cmd_suffix(t_token **token)
 {
-	t_pnode	*child;
-	t_pnode	*parent;
-	t_pnode	*save_parent;
+	t_cmdlst	*child;
+	t_cmdlst	*parent;
+	t_cmdlst	*save_parent;
 	size_t	size;
 
 	child = io_redirect(*token);
@@ -150,9 +151,9 @@ t_pnode	*cmd_suffix(t_token **token)
 	return (save_parent);
 }
 
-t_pnode	*simple_command(t_token **token)
+t_cmdlst	*simple_command(t_token **token)
 {
-	t_pnode	*parent;
+	t_cmdlst	*parent;
 
 	parent = create_new_pnode(SIMPLE_COMMAND, NONE);
 	parent->child = cmd_prefix(token);
@@ -163,10 +164,10 @@ t_pnode	*simple_command(t_token **token)
 	return (parent);
 }
 
-t_pnode	*pipeline(t_token **token)
+t_cmdlst	*pipeline(t_token **token)
 {
-	t_pnode	*parent;
-	t_pnode	*save_parent;
+	t_cmdlst	*parent;
+	t_cmdlst	*save_parent;
 
 	parent = create_new_pnode(PIPELINE, NONE);
 	save_parent = parent;
@@ -181,10 +182,11 @@ t_pnode	*pipeline(t_token **token)
 	return (save_parent);
 }
 
-void	parser(t_token **token)
+t_cmdlst	*parser(t_token **token)
 {
-	t_pnode *parser;
+	t_cmdlst *parser;
 	parser = pipeline(token);
-	print_pnode(parser);
+	return (parser);
+	/* print_cmdlst(parser); */
 }
 

@@ -1,3 +1,4 @@
+#include "mosh_lexer.h"
 #include "mosh_parser.h"
 #include "libft.h"
 #include <stdlib.h>
@@ -10,7 +11,7 @@ static void	init_node_type_table(char table[10][15])
 	(void)ft_strlcpy(table[CMD_PREFIX], "CMD_PREFIX", 15);
 	(void)ft_strlcpy(table[CMD_SUFFIX], "CMD_SUFFIX", 15);
 	(void)ft_strlcpy(table[CMD_WORD], "CMD_WORD", 15);
-	(void)ft_strlcpy(table[WORD], "WORD\t", 15);
+	(void)ft_strlcpy(table[ARG_WORD], "ARG_WORD\t", 15);
 	(void)ft_strlcpy(table[IO_REDIRECT], "IO_REDIRECT", 15);
 	(void)ft_strlcpy(table[IO_FILE], "IO_FILE", 15);
 	(void)ft_strlcpy(table[FILENAME], "FILENAME", 15);
@@ -37,7 +38,7 @@ static void	init_token_type_table(char table[14][10])
 	(void)ft_strlcpy(table[NONE], "none",5);
 }
 
-void	traverse_child(t_pnode *pnode, char node[10][15], char token[14][10])
+void	traverse_child(t_cmdlst *pnode, char node[10][15], char token[14][10])
 {
 	int	node_type;
 	while (pnode != NULL)
@@ -52,7 +53,7 @@ void	traverse_child(t_pnode *pnode, char node[10][15], char token[14][10])
 	}
 }
 
-void	traverse_sibling(t_pnode *pnode, char node[10][15], char token[14][10])
+void	traverse_sibling(t_cmdlst *pnode, char node[10][15], char token[14][10])
 {
 	int	type;
 
@@ -67,7 +68,7 @@ void	traverse_sibling(t_pnode *pnode, char node[10][15], char token[14][10])
 	}
 }
 
-void	print_pnode(t_pnode *pnode)
+void	print_cmdlst(t_cmdlst *pnode)
 {
 	char	node[11][15];
 	char	token[14][10];
