@@ -1,55 +1,36 @@
 #include "mosh_lexer.h"
 #include "mosh_parser.h"
+#include <stdio.h>
 #include <stdlib.h>
 
 t_cmdlst	*create_new_pnode(e_node_type n_type, e_token_type t_type)
 {
-	t_cmdlst	*pnode;
+	t_cmdlst	*node;
 
-	pnode = (t_cmdlst *)malloc(sizeof(t_cmdlst));
-	pnode->node_num = 0;
-	pnode->node_type = n_type;
-	pnode->token_type = t_type;
-	pnode->child = NULL;
-	pnode->sibling = NULL;
-	pnode->value = NULL;
-	return (pnode);
+	node = (t_cmdlst *)malloc(sizeof(t_cmdlst));
+	node->node_num = 0;
+	node->node_type = n_type;
+	node->token_type = t_type;
+	node->child = NULL;
+	node->sibling = NULL;
+	node->value = NULL;
+	return (node);
 }
 
-static size_t	set_childnode_number(t_cmdlst *node, size_t node_number)
+size_t	set_childnode_number(t_cmdlst *node, size_t node_number)
 {
 	if (node == NULL)
 		return (node_number - 1);
 	node->node_num = node_number;
 	node_number = set_childnode_number(node->child, node_number + 1);
-	return (node_number);
-}
-
-static size_t	set_siblingnode_number(t_cmdlst *node, size_t node_number)
-{
-	while (node != NULL)
-	{
-		node_number = set_childnode_number(node, node_number);
-		if (node != NULL)
-		{
-			node_number++;
-			node = node->sibling;
-		}
-	}
+	if (node->sibling != NULL)
+		node_number = set_childnode_number(node->sibling, node_number + 1);
 	return (node_number);
 }
 
 void	set_node_number(t_cmdlst *node)
 {
-	size_t	node_number;
-
-	node_number = 1;
-	while (node != NULL)
-	{
-		node_number = set_siblingnode_number(node->child, node_number);
-		if (node != NULL)
-		node = node->sibling;
-	}
+	(void)set_childnode_number(node, 0);
 }
 
 size_t	child_listsize(t_cmdlst *lst)

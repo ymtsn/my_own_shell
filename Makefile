@@ -1,4 +1,4 @@
-NAME 				=	mosh
+NAME 				=	mysh
 
 CC 					=	gcc
 COMPILE_FLGS		=	-Wall -Werror -Wextra $(DEBUG_FLGS) $(INCLUDE_FLGS)

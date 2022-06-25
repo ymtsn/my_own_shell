@@ -26,7 +26,7 @@ t_cmdlst	*filename(t_token *token)
 t_cmdlst	*io_file(t_token *token)
 {
 	t_cmdlst	*child;
-	t_cmdlst *parent;
+	t_cmdlst	*parent;
 
 	if (token == NULL)
 		return (NULL) ;
@@ -46,7 +46,7 @@ t_cmdlst	*io_file(t_token *token)
 t_cmdlst	*io_redirect(t_token *token)
 {
 	t_cmdlst	*child;
-	t_cmdlst *parent;
+	t_cmdlst	*parent;
 
 	if (token == NULL)
 		return (NULL) ;
@@ -68,7 +68,7 @@ t_cmdlst	*cmd_prefix(t_token **token)
 	t_cmdlst	*child;
 	t_cmdlst	*parent;
 	t_cmdlst	*save_parent;
-	size_t	size;
+	size_t		size;
 
 	child = io_redirect(*token);
 	parent = create_new_pnode(CMD_PREFIX, NONE);
@@ -92,9 +92,9 @@ t_cmdlst	*cmd_prefix(t_token **token)
 	return (save_parent);
 }
 
-t_cmdlst *cmd_word(t_token **token)
+t_cmdlst	*cmd_word(t_token **token)
 {
-	t_cmdlst *pnode;
+	t_cmdlst	*pnode;
 
 	if ((*token)->type != WORD_TOKEN)
 		return (NULL);
@@ -104,10 +104,10 @@ t_cmdlst *cmd_word(t_token **token)
 	return (pnode);
 }
 
-t_cmdlst *word(t_token *token)
+t_cmdlst	*word(t_token *token)
 {
-	t_cmdlst *parent;
-	t_cmdlst *child;
+	t_cmdlst	*parent;
+	t_cmdlst	*child;
 
 	if (token == NULL ||  token->type != WORD_TOKEN)
 		return (NULL);
@@ -123,7 +123,7 @@ t_cmdlst	*cmd_suffix(t_token **token)
 	t_cmdlst	*child;
 	t_cmdlst	*parent;
 	t_cmdlst	*save_parent;
-	size_t	size;
+	size_t		size;
 
 	child = io_redirect(*token);
 	if (child == NULL)
@@ -161,7 +161,6 @@ t_cmdlst	*simple_command(t_token **token)
 	parent->sibling->child = cmd_word(token);
 	parent->sibling->sibling =  create_new_pnode(CMD_SUFFIX_HRAD, NONE);
 	parent->sibling->sibling->child = cmd_suffix(token);
-	set_node_number(parent);
 	return (parent);
 }
 
@@ -170,7 +169,7 @@ t_cmdlst	*pipeline(t_token **token)
 	t_cmdlst	*parent;
 	t_cmdlst	*save_parent;
 
-	parent = create_new_pnode(PIPELINE, NONE);
+	parent = create_new_pnode(SIMPLE_COMMAND, NONE);
 	save_parent = parent;
 	parent->child = simple_command(token);
 	while (*token != NULL && (*token)->type == PIPE)
@@ -178,6 +177,8 @@ t_cmdlst	*pipeline(t_token **token)
 		parent->sibling = create_new_pnode(PIPELINE, NONE);
 		parent = parent->sibling;
 		*token = (*token)->next;
+		parent->sibling = create_new_pnode(SIMPLE_COMMAND, NONE);
+		parent = parent->sibling;
 		parent->child = simple_command(token);
 	}
 	return (save_parent);
@@ -185,9 +186,10 @@ t_cmdlst	*pipeline(t_token **token)
 
 t_cmdlst	*parser(t_token **token)
 {
-	t_cmdlst *parser;
+	t_cmdlst	*parser;
+
 	parser = pipeline(token);
+	set_node_number(parser);
 	return (parser);
-	/* print_cmdlst(parser); */
 }
 

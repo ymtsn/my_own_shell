@@ -6,20 +6,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-size_t	get_node_count(t_cmdlst *node, int find_type)
-{
-	size_t node_count;
-	node_count = 0;
-
-	while (node != NULL)
-	{
-		node = get_node_iterate(node, node, find_type);
-		if (node != NULL)
-			node_count++;
-	}
-	return (node_count);
-}
-
 size_t	get_cmd_suffix_argword_count(t_cmdlst *cmd_tree)
 {
 	size_t		node_count;

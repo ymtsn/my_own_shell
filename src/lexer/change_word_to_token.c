@@ -3,7 +3,7 @@
 
 static t_token	*create_new_token(t_lexer *lexer)
 {
-	int	len;
+	int		len;
 	t_token	*new_token;
 
 	new_token = (t_token *)malloc(sizeof(t_token));

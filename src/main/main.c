@@ -8,8 +8,8 @@
 #include <stdio.h>
 
 static void	commandline_loop(void){
-	char	*src = "ls -l -a";
-	t_token	*token;
+	char		*src = "ls -l -a | wc -l";
+	t_token		*token;
 	t_cmdlst	*command_tree;
 
 	while (1)
@@ -22,7 +22,7 @@ static void	commandline_loop(void){
 			/* free(src); */
 			command_tree = parser(&token);
 			print_cmdlst(command_tree);
-			simple_command_execute(command_tree);
+			/* simple_command_execute(command_tree); */
 			return ;
 		}
 	}
