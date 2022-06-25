@@ -35,7 +35,7 @@ t_cmdlst	*get_node(t_cmdlst *node, int find_type)
 	return (NULL);
 }
 
-t_cmdlst	*get_node_iterate(t_cmdlst *root, t_cmdlst *node, int find_type)
+t_cmdlst	*get_node_iterate(t_cmdlst *find_root, t_cmdlst *node, int find_type)
 {
 	int			node_type;
 	t_cmdlst	*rtn_node;
@@ -43,10 +43,10 @@ t_cmdlst	*get_node_iterate(t_cmdlst *root, t_cmdlst *node, int find_type)
 	while (node != NULL)
 	{
 		node_type = node->node_type;
-		if (find_type == node_type && node != root)
+		if (find_type == node_type && find_root->node_num < node->node_num)
 			return (node);
 		else
-			rtn_node = get_node_iterate(root, node->child, find_type);
+			rtn_node = get_node_iterate(find_root, node->child, find_type);
 		if (rtn_node != NULL)
 			return(rtn_node);
 		node = node->sibling;

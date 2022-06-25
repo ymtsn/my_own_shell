@@ -155,12 +155,13 @@ t_cmdlst	*simple_command(t_token **token)
 {
 	t_cmdlst	*parent;
 
-	parent = create_new_pnode(SIMPLE_COMMAND, NONE);
+	parent = create_new_pnode(CMD_PREFIX_HEAD, NONE);
 	parent->child = cmd_prefix(token);
-	parent->sibling = create_new_pnode(SIMPLE_COMMAND, NONE);
+	parent->sibling = create_new_pnode(CMD_WORD_HEAD, NONE);
 	parent->sibling->child = cmd_word(token);
-	parent->sibling->sibling =  create_new_pnode(SIMPLE_COMMAND, NONE);
+	parent->sibling->sibling =  create_new_pnode(CMD_SUFFIX_HRAD, NONE);
 	parent->sibling->sibling->child = cmd_suffix(token);
+	set_node_number(parent);
 	return (parent);
 }
 

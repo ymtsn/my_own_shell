@@ -4,22 +4,25 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-static void	init_node_type_table(char table[10][15])
+static void	init_node_type_table(char table[14][16])
 {
-	(void)ft_strlcpy(table[PIPELINE], "PIPELINE", 15);
-	(void)ft_strlcpy(table[SIMPLE_COMMAND], "SIMPLE_COMMAND", 15);
-	(void)ft_strlcpy(table[CMD_PREFIX], "CMD_PREFIX", 15);
-	(void)ft_strlcpy(table[CMD_SUFFIX], "CMD_SUFFIX", 15);
-	(void)ft_strlcpy(table[CMD_WORD], "CMD_WORD", 15);
-	(void)ft_strlcpy(table[ARG_WORD], "ARG_WORD\t", 15);
-	(void)ft_strlcpy(table[IO_REDIRECT], "IO_REDIRECT", 15);
-	(void)ft_strlcpy(table[IO_FILE], "IO_FILE", 15);
-	(void)ft_strlcpy(table[FILENAME], "FILENAME", 15);
-	(void)ft_strlcpy(table[IO_HERE], "IO_HERE", 15);
-	(void)ft_strlcpy(table[HERE_END], "HERE_END", 15);
+	(void)ft_strlcpy(table[PIPELINE], "PIPELINE", 16);
+	(void)ft_strlcpy(table[SIMPLE_COMMAND], "SIMPLE_COMMAND", 16);
+	(void)ft_strlcpy(table[CMD_PREFIX], "CMD_PREFIX", 16);
+	(void)ft_strlcpy(table[CMD_PREFIX_HEAD], "CMD_PREFIX_HEAD", 16);
+	(void)ft_strlcpy(table[CMD_SUFFIX], "CMD_SUFFIX", 16);
+	(void)ft_strlcpy(table[CMD_SUFFIX_HRAD], "CMD_SUFFIX_HEAD", 16);
+	(void)ft_strlcpy(table[CMD_WORD], "CMD_WORD", 16);
+	(void)ft_strlcpy(table[CMD_WORD_HEAD], "CMD_WORD_HEAD", 16);
+	(void)ft_strlcpy(table[ARG_WORD], "ARG_WORD\t", 16);
+	(void)ft_strlcpy(table[IO_REDIRECT], "IO_REDIRECT", 16);
+	(void)ft_strlcpy(table[IO_FILE], "IO_FILE", 16);
+	(void)ft_strlcpy(table[FILENAME], "FILENAME", 16);
+	(void)ft_strlcpy(table[IO_HERE], "IO_HERE", 16);
+	(void)ft_strlcpy(table[HERE_END], "HERE_END", 16);
 }
 
-static void	init_token_type_table(char table[14][10])
+static void	init_token_type_table(char table[15][10])
 {
 	(void)ft_strlcpy(table[DLESS], "<<",3);
 	(void)ft_strlcpy(table[DGREAT], ">>",3);
@@ -38,7 +41,7 @@ static void	init_token_type_table(char table[14][10])
 	(void)ft_strlcpy(table[NONE], "none",5);
 }
 
-void	traverse_child(t_cmdlst *pnode, char node[10][15], char token[14][10])
+void	traverse_child(t_cmdlst *pnode, char node[14][16], char token[15][10])
 {
 	int	node_type;
 	while (pnode != NULL)
@@ -48,12 +51,14 @@ void	traverse_child(t_cmdlst *pnode, char node[10][15], char token[14][10])
 			printf(" ");
 		printf("node_type: %s\t", node[pnode->node_type]);
 		printf("value: %s\t", pnode->value);
-		printf("token_type: %s\n", token[pnode->token_type]);
-		pnode = pnode->child;
+		printf("token_type: %s", token[pnode->token_type]);
+		printf("node_number: %zu\n", pnode->node_num);
+		if (pnode != NULL)
+			pnode = pnode->child;
 	}
 }
 
-void	traverse_sibling(t_cmdlst *pnode, char node[10][15], char token[14][10])
+void	traverse_sibling(t_cmdlst *pnode, char node[14][16], char token[15][10])
 {
 	int	type;
 
@@ -64,14 +69,15 @@ void	traverse_sibling(t_cmdlst *pnode, char node[10][15], char token[14][10])
 			traverse_child(pnode, node, token);
 		else
 			traverse_sibling(pnode->child, node, token);
-		pnode = pnode->sibling;
+		if (pnode != NULL)
+			pnode = pnode->sibling;
 	}
 }
 
 void	print_cmdlst(t_cmdlst *pnode)
 {
-	char	node[11][15];
-	char	token[14][10];
+	char	node[14][16];
+	char	token[15][10];
 
 	init_node_type_table(node);
 	init_token_type_table(token);
