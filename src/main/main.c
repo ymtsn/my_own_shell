@@ -4,13 +4,14 @@
 #include "mosh_parser.h"
 #include "mosh_debug.h"
 #include "mosh_executer.h"
+#include "mosh_pipe.h"
 #include "libft.h"
 #include <stdio.h>
 
 static void	commandline_loop(void){
-	char		*src = "ls -l -a | wc -l";
+	char		*src = "seq 10 | sort -r";
 	t_token		*token;
-	t_cmdlst	*command_tree;
+	t_cmdlst	*cmd_tree;
 
 	while (1)
 	{
@@ -19,10 +20,11 @@ static void	commandline_loop(void){
 		if (src != NULL)
 		{
 			token = lexer(src);
-			/* free(src); */
-			command_tree = parser(&token);
-			print_cmdlst(command_tree);
-			/* simple_command_execute(command_tree); */
+			free(src);
+			cmd_tree = parser(&token);
+		/* 	print_cmdlst(cmd_tree); */
+			do_pipe(cmd_tree);
+			/* simple_command_execute(cmd_tree); */
 			return ;
 		}
 	}

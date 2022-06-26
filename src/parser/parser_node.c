@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-t_cmdlst	*create_new_pnode(e_node_type n_type, e_token_type t_type)
+t_cmdlst	*create_new_node(e_node_type n_type, e_token_type t_type)
 {
 	t_cmdlst	*node;
 
