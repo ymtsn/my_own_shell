@@ -1,25 +1,33 @@
-#include "mosh_lexer.h"
+#include "mysh_lexer.h"
 #include "libft.h"
 #define WHITE_SPACE 1
 #define READ_WORD 2
 #define STRING_END 3
-#define ERROR 4
+#define IO_NUM_POSSIBLE 4
+#define ERROR 5
 #include <stdio.h>
 
 int	get_token_type(t_lexer *l, size_t chr_pos)
 {
 	int			i;
-	int			result;
+	int			rs;
 	const char	*find;
-	char		*target;
+	int			ionum_flg;
 
+	ionum_flg = 0;
+	while (ft_isdigit(*(l->src + chr_pos)))
+	{
+		chr_pos++;
+		ionum_flg = 1;
+	}
 	i = 0;
 	while (i <= PIPE)
 	{
 		find = (const char*)(l->src + chr_pos);
-		target = l->token_table[i];
-		result = ft_strncmp(find, target, ft_strlen(target));
-		if (result == 0)
+		rs = ft_strncmp(find, l->token_table[i], ft_strlen(l->token_table[i]));
+		if (!rs && ionum_flg && DLESS <= i && i <= GREAT)
+			return (IO_NUMBER_TOKEN);
+		else if (rs == 0)
 			return (i);
 		i++;
 	}
@@ -58,7 +66,15 @@ static void	get_word_len_and_token_type(t_lexer *lexer)
 		return ;
 	lexer->word_start_pos = lexer->current_pos;
 	token_type = get_token_type(lexer, lexer->current_pos);
-	if (token_type != WORD_TOKEN)
+	if (token_type == IO_NUMBER_TOKEN)
+	{
+		while (ft_isdigit(*(lexer->src + lexer->current_pos)))
+			lexer->current_pos++;
+		lexer->token_type = IO_NUMBER_TOKEN;
+		set_lexer_state(lexer);
+		return ;
+	}
+	if (DLESS <= token_type && token_type <= PIPE)
 	{
 		lexer->current_pos++;
 		if (DLESS <= token_type && token_type <= GREATAND)
@@ -92,7 +108,7 @@ t_token	*lexer(char *src)
 			change_word_to_token(&lexer, &token);
 		}
 	}
-/* 	print_token(token, &lexer); */
-	set_io_number(token);
+	/* print_token(token, &lexer); */
+	/* set_io_number(token); */
 	return (token);
 }

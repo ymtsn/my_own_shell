@@ -1,5 +1,5 @@
-#include "mosh_lexer.h"
-#include "mosh_parser.h"
+#include "mysh_lexer.h"
+#include "mysh_parser.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -42,8 +42,9 @@ size_t	child_listsize(t_cmdlst *lst)
 	len = 0;
 	while (lst != NULL)
 	{
+		if (lst->token_type != NONE)
+			len++;
 		lst = lst->child;
-		len++;
 	}
 	return (len);
 }

@@ -1,10 +1,10 @@
-#ifndef MOSH_LEXER_H
-#define MOSH_LEXER_H
+#ifndef MYSH_LEXER_H
+#define MYSH_LEXER_H
 #include <stddef.h>
 typedef enum{
 	DLESS,		/* '<<' */
 	DGREAT,		/* '>>' */
-	DGREATAND,	/* '&>>' */
+	DGREATAND,	/* '>>&' */
 	ANDGREAT,	/* '&>' */
 	LESSAND,	/* '<&' */
 	GREATAND,	/* '>&' */
@@ -13,7 +13,7 @@ typedef enum{
 	ASSIGNMENT_WORD,	/* '=' */
 	NEWLINE,	/* '\n' */
 	PIPE,		/* '|' */
-	IO_NUMBER,
+	IO_NUMBER_TOKEN,
 	WORD_TOKEN,
 	NAME,
 	NONE
@@ -36,5 +36,4 @@ void	init_lexer(t_lexer *, char **);
 void	change_word_to_token(t_lexer *, t_token **);
 void	set_lexer_state(t_lexer *);
 void	print_token(t_token *, t_lexer *);
-void	set_io_number(t_token *);
 #endif

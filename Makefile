@@ -31,7 +31,7 @@ GET_INPUT_SRC_FULLNAME	=	$(addprefix ./src/get_input/, $(GET_INPUT_SRC))
 GET_INPUT_OBJ			=	$(GET_INPUT_SRC:.c=.o)
 GET_INPUT_OBJ_FULLNAME	=	$(addprefix ./obj/mosh/, $(GET_INPUT_OBJ))
 
-LEXER_SRC				=	lexer.c init_lexer.c change_word_to_token.c set_io_number.c
+LEXER_SRC				=	lexer.c init_lexer.c change_word_to_token.c
 LEXER_DIR				=	./src/lexer
 LEXER_SRC_FULLNAME		=	$(addprefix ./src/lexer/, $(LEXER_SRC))
 LEXER_OBJ				=	$(LEXER_SRC:.c=.o)
@@ -55,6 +55,12 @@ PIPE_SRC_FULLNAME		=	$(addprefix ./src/pipe/, $(PIPE_SRC))
 PIPE_OBJ				=	$(PIPE_SRC:.c=.o)
 PIPE_OBJ_FULLNAME		=	$(addprefix ./obj/mosh/, $(PIPE_OBJ))
 
+REDIRECT_SRC			=	redirect.c
+REDIRECT_DIR			=	./src/redirect
+REDIRECT_SRC_FULLNAME	=	$(addprefix ./src/redirect/, $(REDIRECT_SRC))
+REDIRECT_OBJ			=	$(REDIRECT_SRC:.c=.o)
+REDIRECT_OBJ_FULLNAME	=	$(addprefix ./obj/mosh/, $(REDIRECT_OBJ))
+
 DEBUG_SRC				=	debug.c
 DEBUG_DIR				=	./src/debug
 DEBUG_SRC_FULLNAME		=	$(addprefix ./src/debug/, $(DEBUG_SRC))
@@ -68,6 +74,7 @@ OBJ_FILE_LIST			=	$(MAIN_OBJ_FULLNAME) \
 							$(PARSER_OBJ_FULLNAME) \
 							$(EXECUTER_OBJ_FULLNAME) \
 							$(PIPE_OBJ_FULLNAME) \
+							$(REDIRECT_OBJ_FULLNAME) \
 							$(DEBUG_OBJ_FULLNAME)
 
 all:make-libft $(NAME)
@@ -100,6 +107,10 @@ $(OBJ_DIR)/%.o:$(EXECUTER_DIR)/%.c
 	$(CC) $(COMPILE_FLGS) -c $^ -o $@
 
 $(OBJ_DIR)/%.o:$(PIPE_DIR)/%.c
+	@mkdir -p $(OBJ_DIR)
+	$(CC) $(COMPILE_FLGS) -c $^ -o $@
+
+$(OBJ_DIR)/%.o:$(REDIRECT_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)
 	$(CC) $(COMPILE_FLGS) -c $^ -o $@
 

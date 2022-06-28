@@ -1,6 +1,6 @@
-#include "mosh_lexer.h"
-#include "mosh_parser.h"
-#include "mosh_executer.h"
+#include "mysh_lexer.h"
+#include "mysh_parser.h"
+#include "mysh_executer.h"
 #include "libft.h"
 #include <unistd.h>
 #include <stdio.h>
@@ -18,7 +18,7 @@ void	do_execve(t_cmdlst *cmd_tree)
 	if (execve(path, argv, environ) == -1)
 	{
 		perror("execve error\n");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 }
 
@@ -31,7 +31,7 @@ void	simple_command_execute(t_cmdlst *cmd_tree)
 	if (pid < 0)
 	{
 		perror("fork error\n");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	else if (pid == 0)
 	{
@@ -40,6 +40,6 @@ void	simple_command_execute(t_cmdlst *cmd_tree)
 	if (waitpid(pid, &status, 0) < 0)
 	{
 		perror("waitpid error\n");
-		exit (1);
+		exit (EXIT_FAILURE);
 	}
 }

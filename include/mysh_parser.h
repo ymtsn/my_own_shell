@@ -1,5 +1,5 @@
-#ifndef MOSH_PARSER_H
-#define MOSH_PARSER_H
+#ifndef MYSH_PARSER_H
+#define MYSH_PARSER_H
 typedef enum {
 	PIPELINE,
 	SIMPLE_COMMAND,
@@ -11,6 +11,7 @@ typedef enum {
 	CMD_WORD_HEAD,
 	ARG_WORD,
 	IO_REDIRECT,
+	IO_NUMBER,
 	IO_FILE,
 	FILENAME,
 	IO_HERE,

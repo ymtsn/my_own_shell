@@ -1,7 +1,7 @@
 #include <stddef.h>
-#include "mosh_lexer.h"
-#include "mosh_parser.h"
-#include "mosh_debug.h"
+#include "mysh_lexer.h"
+#include "mysh_parser.h"
+#include "mysh_debug.h"
 #include <stdio.h>
 
 /* void	here_end(t_token *token, t_cmdlst *node)
@@ -43,21 +43,36 @@ t_cmdlst	*io_file(t_token *token)
 	return (NULL);
 }
 
+t_cmdlst	*io_number(t_token *token)
+{
+	t_cmdlst	*child;
+	t_cmdlst	*parent;
+
+	if (token == NULL)
+		return (NULL);
+	child = io_file(token->next);
+	if (child == NULL)
+		return (NULL);
+	parent = create_new_node(IO_NUMBER, token->type);
+	parent->child = child;
+	parent->value = token->value;
+	return (parent);
+}
+
 t_cmdlst	*io_redirect(t_token *token)
 {
 	t_cmdlst	*child;
 	t_cmdlst	*parent;
 
 	if (token == NULL)
-		return (NULL) ;
-	if (token->type == IO_NUMBER)
-		child = io_file(token->next);
+		return (NULL);
+	if (token->type == IO_NUMBER_TOKEN)
+		child = io_number(token);
 	else
 		child = io_file(token);
-	if (child == NULL || token->type != IO_NUMBER)
+	if (child == NULL)
 		return (child);
-	parent = create_new_node(IO_REDIRECT, token->type);
-	parent->value = token->value;
+	parent = create_new_node(IO_REDIRECT, NONE);
 	parent->child = child;
 	return (parent);
 	/* io_here(token, node); */
@@ -139,7 +154,7 @@ t_cmdlst	*cmd_suffix(t_token **token)
 		}
 		parent->child = child;
 		size = child_listsize(child);
-		while (size)
+		while (*token != NULL && size)
 		{
 			*token = (*token)->next;
 			size--;

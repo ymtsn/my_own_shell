@@ -1,10 +1,10 @@
-#include "mosh_lexer.h"
-#include "mosh_parser.h"
+#include "mysh_lexer.h"
+#include "mysh_parser.h"
 #include "libft.h"
 #include <stdlib.h>
 #include <stdio.h>
 
-static void	init_node_type_table(char table[14][16])
+static void	init_node_type_table(char table[15][16])
 {
 	(void)ft_strlcpy(table[PIPELINE], "PIPELINE", 16);
 	(void)ft_strlcpy(table[SIMPLE_COMMAND], "SIMPLE_COMMAND", 16);
@@ -17,6 +17,7 @@ static void	init_node_type_table(char table[14][16])
 	(void)ft_strlcpy(table[ARG_WORD], "ARG_WORD\t", 16);
 	(void)ft_strlcpy(table[IO_REDIRECT], "IO_REDIRECT", 16);
 	(void)ft_strlcpy(table[IO_FILE], "IO_FILE", 16);
+	(void)ft_strlcpy(table[IO_NUMBER], "IO_NUMBER", 16);
 	(void)ft_strlcpy(table[FILENAME], "FILENAME", 16);
 	(void)ft_strlcpy(table[IO_HERE], "IO_HERE", 16);
 	(void)ft_strlcpy(table[HERE_END], "HERE_END", 16);
@@ -35,13 +36,13 @@ static void	init_token_type_table(char table[15][10])
 	(void)ft_strlcpy(table[PIPE], "|",2);
 	(void)ft_strlcpy(table[LESS], "<",2);
 	(void)ft_strlcpy(table[GREAT], ">",2);
-	(void)ft_strlcpy(table[IO_NUMBER], "io_number",10);
+	(void)ft_strlcpy(table[IO_NUMBER_TOKEN], "io_number",10);
 	(void)ft_strlcpy(table[NAME], "name",5);
 	(void)ft_strlcpy(table[WORD_TOKEN], "word",5);
 	(void)ft_strlcpy(table[NONE], "none",5);
 }
 
-void	get_childnode(t_cmdlst *cmdlst, char node[14][16], char token[15][10])
+void	get_childnode(t_cmdlst *cmdlst, char node[15][16], char token[15][10])
 {
 	if (cmdlst == NULL)
 		return;
@@ -56,7 +57,7 @@ void	get_childnode(t_cmdlst *cmdlst, char node[14][16], char token[15][10])
 
 void	print_cmdlst(t_cmdlst *cmdlst)
 {
-	char	node[14][16];
+	char	node[15][16];
 	char	token[15][10];
 
 	init_node_type_table(node);

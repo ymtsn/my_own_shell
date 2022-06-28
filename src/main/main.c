@@ -1,15 +1,16 @@
-#include "mosh_prompt.h"
-#include "mosh_get_input.h"
-#include "mosh_lexer.h"
-#include "mosh_parser.h"
-#include "mosh_debug.h"
-#include "mosh_executer.h"
-#include "mosh_pipe.h"
+#include "mysh_prompt.h"
+#include "mysh_get_input.h"
+#include "mysh_lexer.h"
+#include "mysh_parser.h"
+#include "mysh_debug.h"
+#include "mysh_executer.h"
+#include "mysh_pipe.h"
+#include "mysh_redirect.h"
 #include "libft.h"
 #include <stdio.h>
 
 static void	commandline_loop(void){
-	char		*src = "seq 10 | sort -r";
+	char		*src = "ls foo > test 2>&1";
 	t_token		*token;
 	t_cmdlst	*cmd_tree;
 
@@ -20,11 +21,12 @@ static void	commandline_loop(void){
 		if (src != NULL)
 		{
 			token = lexer(src);
-			free(src);
+			/* free(src); */
 			cmd_tree = parser(&token);
-		/* 	print_cmdlst(cmd_tree); */
-			do_pipe(cmd_tree);
-			/* simple_command_execute(cmd_tree); */
+			/* print_cmdlst(cmd_tree); */
+			do_redirect(cmd_tree);
+		/* 	do_pipe(cmd_tree); */
+			simple_command_execute(cmd_tree);
 			return ;
 		}
 	}

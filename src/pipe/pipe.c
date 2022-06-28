@@ -1,7 +1,7 @@
-#include "mosh_lexer.h"
-#include "mosh_parser.h"
-#include "mosh_executer.h"
-#include "mosh_pipe.h"
+#include "mysh_lexer.h"
+#include "mysh_parser.h"
+#include "mysh_executer.h"
+#include "mysh_pipe.h"
 #include "libft.h"
 #include <unistd.h>
 #include <stdio.h>
@@ -38,10 +38,11 @@ void	do_pipe_recursive(t_cmdlst *node, size_t cmd_count)
 	pid_t	pid;
 	int		fd[2];
 
-	if (cmd_count <= 1)
+	if (cmd_count == 1)
 	{
 		do_execve(node);
-		return ;
+		perror("pipeline faile");
+		exit(EXIT_FAILURE);
 	}
 	pipe(fd);
 	pid = fork();

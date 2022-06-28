@@ -1,4 +1,4 @@
-#include "mosh_lexer.h"
+#include "mysh_lexer.h"
 #include "libft.h"
 #include <stdio.h>
 
@@ -38,7 +38,7 @@ static void	set_lexer_token_table(t_lexer *lexer)
 	(void)ft_strlcpy(lexer->token_table[PIPE], "|", 2);
 	(void)ft_strlcpy(lexer->token_table[LESS], "<", 2);
 	(void)ft_strlcpy(lexer->token_table[GREAT], ">", 2);
-	(void)ft_strlcpy(lexer->token_table[IO_NUMBER], "io_number", 10);
+	(void)ft_strlcpy(lexer->token_table[IO_NUMBER_TOKEN], "io_number", 10);
 	(void)ft_strlcpy(lexer->token_table[NAME], "name", 5);
 	(void)ft_strlcpy(lexer->token_table[WORD_TOKEN], "word", 5);
 }
