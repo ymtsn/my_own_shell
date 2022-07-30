@@ -9,38 +9,38 @@
 #define READ_END	0
 #define WRITE_END	1
 
-static void	do_pipe_execve(t_cmdlst	*node, size_t cmd_count)
+static void	exec_pipe_execve(t_cmdlst	*cmdlst, size_t cmd_count)
 {
 	cmd_count--;
 	while (cmd_count)
 	{
-		node = node->sibling;
+		cmdlst = cmdlst->sibling;
 		cmd_count--;
 	}
-	do_execve(node);
+	my_execve(cmdlst);
 }
 
-static size_t	get_pipe_count(t_cmdlst	*node)
+static size_t	get_pipe_count(t_cmdlst	*cmdlst)
 {
 	size_t	pipe_count;
 
 	pipe_count = 0;
-	while (node != NULL && node->node_type == PIPELINE)
+	while (cmdlst != NULL && cmdlst->node_type == PIPELINE)
 	{
-		node = node->sibling;
+		cmdlst = cmdlst->sibling;
 		pipe_count++;
 	}
 	return (pipe_count);
 }
 
-void	do_pipe_recursive(t_cmdlst *node, size_t cmd_count)
+static void	make_pipe_recursive(t_cmdlst *cmdlst, size_t cmd_count)
 {
 	pid_t	pid;
 	int		fd[2];
 
 	if (cmd_count == 1)
 	{
-		do_execve(node);
+		my_execve(cmdlst);
 		perror("pipeline faile");
 		exit(EXIT_FAILURE);
 	}
@@ -52,24 +52,24 @@ void	do_pipe_recursive(t_cmdlst *node, size_t cmd_count)
 		dup2(fd[WRITE_END], STDOUT_FILENO);
 		close(fd[WRITE_END]);
 		cmd_count--;
-		do_pipe_recursive(node, cmd_count);
+		make_pipe_recursive(cmdlst, cmd_count);
 	}
 	else
 	{
 		close(fd[WRITE_END]);
 		dup2(fd[READ_END], STDIN_FILENO);
 		close(fd[READ_END]);
-		do_pipe_execve(node, cmd_count);
+		exec_pipe_execve(cmdlst, cmd_count);
 	}
 }
 
-void	do_pipe(t_cmdlst *cmd_tree)
+void	exec_pipe(t_cmdlst *cmdlst)
 {
 	size_t		cmd_count;
 
-	if (cmd_tree == NULL || cmd_tree->node_type != PIPELINE)
+	if (cmdlst == NULL || cmdlst->node_type != PIPELINE)
 		return ;
-	cmd_count = get_pipe_count(cmd_tree);
-	do_pipe_recursive(cmd_tree, cmd_count);
+	cmd_count = get_pipe_count(cmdlst);
+	make_pipe_recursive(cmdlst, cmd_count);
 }
 

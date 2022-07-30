@@ -6,6 +6,7 @@ t_cmdlst	*get_node(t_cmdlst *, int);
 t_cmdlst	*get_node_iterate(size_t, t_cmdlst *, int);
 char		*get_path(t_cmdlst *);
 char		**get_argv(t_cmdlst *);
-void		do_execve(t_cmdlst *);
-void		simple_command_execute(t_cmdlst *);
+void		my_execve(t_cmdlst *);
+void		exec_simple_command(t_cmdlst *);
+void		executer(t_cmdlst *cmdlst);
 #endif

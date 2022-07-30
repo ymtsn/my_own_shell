@@ -9,11 +9,20 @@
 #include "libft.h"
 #include <stdio.h>
 
-static void	commandline_loop(void)
+static void	free_variables(char * src, t_token *tkn, t_cmdlst *cmd)
 {
+	free(src);
+	free_token(tkn);
+	free_cmdlst(cmd);
+}
+
+/* 	print_token(token); */
+/* 	print_cmdlst(cmdlst); */
+static void cmdline_loop(void)
+{
+	char		*src;
 	t_token		*token;
 	t_cmdlst	*cmdlst;
-	char		*src;
 
 	while (1)
 	{
@@ -23,20 +32,14 @@ static void	commandline_loop(void)
 		{
 			token = lexer(src);
 			cmdlst = parser(token);
-			free(src);
-			free_token(token);
-			free_cmdlst(cmdlst);
-			return ;
-		/* 	print_token(token); */
-		/* 	print_cmdlst(cmdlst); */
-		/* 	do_redirect(cmdlst); */
-		/* 	do_pipe(cmdlst); */
-		/* 	simple_command_execute(cmdlst); */
+			executer(cmdlst);
+			free_variables(src, token, cmdlst);
 		}
 	}
 }
 
-int	main(void){
-	commandline_loop();
+int	main(void)
+{
+	cmdline_loop();
 	return (0);
 }
