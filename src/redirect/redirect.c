@@ -64,6 +64,7 @@ static void	do_redirect_out_fd(char *io_number, char *filename)
 		int_io_number = STDOUT_FILENO;
 	redirect_fd = ft_atoi(filename);
 	dup2(redirect_fd, int_io_number);
+	close(redirect_fd);
 }
 
 void	do_redirect(t_cmdlst *node)

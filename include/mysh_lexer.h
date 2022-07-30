@@ -35,5 +35,5 @@ t_token *lexer(char	*);
 void	init_lexer(t_lexer *, char **);
 void	change_word_to_token(t_lexer *, t_token **);
 void	set_lexer_state(t_lexer *);
-void	print_token(t_token *, t_lexer *);
+void	free_token(t_token *token);
 #endif

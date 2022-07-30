@@ -9,25 +9,29 @@
 #include "libft.h"
 #include <stdio.h>
 
-static void	commandline_loop(void){
-	char		*src = "ls foo > test 2>&1";
+static void	commandline_loop(void)
+{
 	t_token		*token;
-	t_cmdlst	*cmd_tree;
+	t_cmdlst	*cmdlst;
+	char		*src;
 
 	while (1)
 	{
-	/* 	prompt();
-		src = get_input(); */
+		prompt();
+		src = get_input();
 		if (src != NULL)
 		{
 			token = lexer(src);
-			/* free(src); */
-			cmd_tree = parser(&token);
-			/* print_cmdlst(cmd_tree); */
-			do_redirect(cmd_tree);
-		/* 	do_pipe(cmd_tree); */
-			simple_command_execute(cmd_tree);
+			cmdlst = parser(token);
+			free(src);
+			free_token(token);
+			free_cmdlst(cmdlst);
 			return ;
+		/* 	print_token(token); */
+		/* 	print_cmdlst(cmdlst); */
+		/* 	do_redirect(cmdlst); */
+		/* 	do_pipe(cmdlst); */
+		/* 	simple_command_execute(cmdlst); */
 		}
 	}
 }

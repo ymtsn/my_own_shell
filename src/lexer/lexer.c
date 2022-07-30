@@ -97,6 +97,8 @@ t_token	*lexer(char *src)
 	t_lexer	lexer;
 	t_token	*token;
 
+	if (src == NULL)
+		return (NULL);
 	token = NULL;
 	init_lexer(&lexer, &src);
 	while (lexer.state != STRING_END)
@@ -108,7 +110,5 @@ t_token	*lexer(char *src)
 			change_word_to_token(&lexer, &token);
 		}
 	}
-	/* print_token(token, &lexer); */
-	/* set_io_number(token); */
 	return (token);
 }

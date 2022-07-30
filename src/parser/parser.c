@@ -179,29 +179,31 @@ t_cmdlst	*simple_command(t_token **token)
 	return (parent);
 }
 
-t_cmdlst	*pipeline(t_token **token)
+t_cmdlst	*pipeline(t_token *token)
 {
 	t_cmdlst	*parent;
 	t_cmdlst	*save_parent;
 
 	parent = create_new_node(SIMPLE_COMMAND, NONE);
 	save_parent = parent;
-	parent->child = simple_command(token);
-	while (*token != NULL && (*token)->type == PIPE)
+	parent->child = simple_command(&token);
+	while (token != NULL && token->type == PIPE)
 	{
 		parent->node_type = PIPELINE;
-		*token = (*token)->next;
+		token = token->next;
 		parent->sibling = create_new_node(PIPELINE, NONE);
 		parent = parent->sibling;
-		parent->child = simple_command(token);
+		parent->child = simple_command(&token);
 	}
 	return (save_parent);
 }
 
-t_cmdlst	*parser(t_token **token)
+t_cmdlst	*parser(t_token *token)
 {
 	t_cmdlst	*parser;
 
+	if (token == NULL)
+		return (NULL);
 	parser = pipeline(token);
 	set_node_number(parser);
 	return (parser);

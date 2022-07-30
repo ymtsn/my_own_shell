@@ -11,61 +11,61 @@ LIBFT_DIR			=	./src/libft
 LIBFT_NAME			=	libft.a
 LIBFT_FULLNAME		=	$(LIBFT_DIR)/$(LIBFT_NAME)
 
-OBJ_DIR 			=	./obj/mosh
+OBJ_DIR 			=	./obj/mysh
 
 MAIN_SRC				=	main.c
 MAIN_DIR 				=	./src/main
 MAIN_SRC_FULLNAME		=	$(addprefix ./src/main/, $(MAIN_SRC))
 MAIN_OBJ				=	main.o
-MAIN_OBJ_FULLNAME		=	$(addprefix ./obj/mosh/, $(MAIN_OBJ))
+MAIN_OBJ_FULLNAME		=	$(addprefix ./obj/mysh/, $(MAIN_OBJ))
 
 PROMPT_SRC				=	prompt.c
 PROMPT_DIR				=	./src/prompt
 PROMPT_SRC_FULLNAME		=	$(addprefix ./src/prompt/, $(PROMPT_SRC))
 PROMPT_OBJ				=	$(PROMPT_SRC:.c=.o)
-PROMPT_OBJ_FULLNAME		=	$(addprefix ./obj/mosh/, $(PROMPT_OBJ))
+PROMPT_OBJ_FULLNAME		=	$(addprefix ./obj/mysh/, $(PROMPT_OBJ))
 
 GET_INPUT_SRC			=	get_input.c get_next_line.c
 GET_INPUT_DIR			=	./src/get_input
 GET_INPUT_SRC_FULLNAME	=	$(addprefix ./src/get_input/, $(GET_INPUT_SRC))
 GET_INPUT_OBJ			=	$(GET_INPUT_SRC:.c=.o)
-GET_INPUT_OBJ_FULLNAME	=	$(addprefix ./obj/mosh/, $(GET_INPUT_OBJ))
+GET_INPUT_OBJ_FULLNAME	=	$(addprefix ./obj/mysh/, $(GET_INPUT_OBJ))
 
-LEXER_SRC				=	lexer.c init_lexer.c change_word_to_token.c
+LEXER_SRC				=	change_word_to_token.c free_token.c lexer.c init_lexer.c
 LEXER_DIR				=	./src/lexer
 LEXER_SRC_FULLNAME		=	$(addprefix ./src/lexer/, $(LEXER_SRC))
 LEXER_OBJ				=	$(LEXER_SRC:.c=.o)
-LEXER_OBJ_FULLNAME		=	$(addprefix ./obj/mosh/, $(LEXER_OBJ))
+LEXER_OBJ_FULLNAME		=	$(addprefix ./obj/mysh/, $(LEXER_OBJ))
 
-PARSER_SRC				=	parser.c parser_node.c
+PARSER_SRC				=	parser.c parser_node.c free_cmdlst.c
 PARSER_DIR				=	./src/parser
 PARSER_SRC_FULLNAME		=	$(addprefix ./src/parser/, $(PARSER_SRC))
 PARSER_OBJ				=	$(PARSER_SRC:.c=.o)
-PARSER_OBJ_FULLNAME		=	$(addprefix ./obj/mosh/, $(PARSER_OBJ))
+PARSER_OBJ_FULLNAME		=	$(addprefix ./obj/mysh/, $(PARSER_OBJ))
 
 EXECUTER_SRC			=	executer.c executer_utils.c get_argv.c get_path.c
 EXECUTER_DIR			=	./src/executer
 EXECUTER_SRC_FULLNAME	=	$(addprefix ./src/executer/, $(EXECUTER_SRC))
 EXECUTER_OBJ			=	$(EXECUTER_SRC:.c=.o)
-EXECUTER_OBJ_FULLNAME	=	$(addprefix ./obj/mosh/, $(EXECUTER_OBJ))
+EXECUTER_OBJ_FULLNAME	=	$(addprefix ./obj/mysh/, $(EXECUTER_OBJ))
 
 PIPE_SRC				=	pipe.c
 PIPE_DIR				=	./src/pipe
 PIPE_SRC_FULLNAME		=	$(addprefix ./src/pipe/, $(PIPE_SRC))
 PIPE_OBJ				=	$(PIPE_SRC:.c=.o)
-PIPE_OBJ_FULLNAME		=	$(addprefix ./obj/mosh/, $(PIPE_OBJ))
+PIPE_OBJ_FULLNAME		=	$(addprefix ./obj/mysh/, $(PIPE_OBJ))
 
 REDIRECT_SRC			=	redirect.c
 REDIRECT_DIR			=	./src/redirect
 REDIRECT_SRC_FULLNAME	=	$(addprefix ./src/redirect/, $(REDIRECT_SRC))
 REDIRECT_OBJ			=	$(REDIRECT_SRC:.c=.o)
-REDIRECT_OBJ_FULLNAME	=	$(addprefix ./obj/mosh/, $(REDIRECT_OBJ))
+REDIRECT_OBJ_FULLNAME	=	$(addprefix ./obj/mysh/, $(REDIRECT_OBJ))
 
-DEBUG_SRC				=	debug.c
+DEBUG_SRC				=	debug_cmdlst.c debug_token.c
 DEBUG_DIR				=	./src/debug
 DEBUG_SRC_FULLNAME		=	$(addprefix ./src/debug/, $(DEBUG_SRC))
 DEBUG_OBJ				=	$(DEBUG_SRC:.c=.o)
-DEBUG_OBJ_FULLNAME		=	$(addprefix ./obj/mosh/, $(DEBUG_OBJ))
+DEBUG_OBJ_FULLNAME		=	$(addprefix ./obj/mysh/, $(DEBUG_OBJ))
 
 OBJ_FILE_LIST			=	$(MAIN_OBJ_FULLNAME) \
 							$(PROMPT_OBJ_FULLNAME) \

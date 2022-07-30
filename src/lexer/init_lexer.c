@@ -2,29 +2,6 @@
 #include "libft.h"
 #include <stdio.h>
 
-void	print_token(t_token *token, t_lexer *lexer)
-{
-	const char	*value;
-	char 		*type;
-
-	while (token != NULL)
-	{
-		value = token->value;
-		type = lexer->token_table[token->type];
-		if (!ft_strncmp(value,"\n",2) && !ft_strncmp(type,"\n",2))
-		{
-			printf("value:\t%s\n", "new_line");
-			printf("token_type:\t%s\n", "new_line");
-		}
-		else
-		{
-			printf("value:\t%s\n", value);
-			printf("token_type:\t%s\n", type);
-		}
-		token = token->next;
-	}
-}
-
 static void	set_lexer_token_table(t_lexer *lexer)
 {
 	(void)ft_strlcpy(lexer->token_table[DLESS], "<<", 3);

@@ -25,8 +25,9 @@ typedef struct s_cmdlst{
 	struct s_cmdlst	*child;
 	struct s_cmdlst	*sibling;
 } t_cmdlst;
-t_cmdlst	*parser(t_token **);
+t_cmdlst	*parser(t_token *);
 t_cmdlst	*create_new_node(e_node_type, e_token_type);
 void	set_node_number(t_cmdlst *);
 size_t	child_listsize(t_cmdlst *);
+void	free_cmdlst(t_cmdlst *);
 #endif
