@@ -39,11 +39,7 @@ static void	make_pipe_recursive(t_cmdlst *cmdlst, size_t cmd_count)
 	int		fd[2];
 
 	if (cmd_count == 1)
-	{
 		my_execve(cmdlst);
-		perror("pipeline faile");
-		exit(EXIT_FAILURE);
-	}
 	pipe(fd);
 	pid = fork();
 	if (pid == 0)
@@ -66,10 +62,24 @@ static void	make_pipe_recursive(t_cmdlst *cmdlst, size_t cmd_count)
 void	exec_pipe(t_cmdlst *cmdlst)
 {
 	size_t		cmd_count;
+	pid_t		pid;
+	int			status;
 
 	if (cmdlst == NULL || cmdlst->node_type != PIPELINE)
 		return ;
 	cmd_count = get_pipe_count(cmdlst);
-	make_pipe_recursive(cmdlst, cmd_count);
+	pid = fork();
+	if (pid < 0)
+	{
+		perror("fork error at exec_pipe");
+		exit(1);
+	}
+	else if (pid == 0)
+		make_pipe_recursive(cmdlst, cmd_count);
+	if (waitpid(pid, &status, 0) < 0)
+	{
+		perror("waitpid error at exec_pipe");
+		exit(1);		
+	}
 }
 
