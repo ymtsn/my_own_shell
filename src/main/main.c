@@ -32,7 +32,7 @@ static void cmdline_loop(void)
 		{
 			token = lexer(src);
 			cmdlst = parser(token);
-			executer(cmdlst);
+ 			executer(cmdlst);
 			free_variables(src, token, cmdlst);
 		}
 	}

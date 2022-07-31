@@ -12,22 +12,22 @@ int	get_token_type(t_lexer *l, size_t chr_pos)
 	int			i;
 	int			rs;
 	const char	*find;
-	int			ionum_flg;
+	int			degit_flg;
 
-	ionum_flg = 0;
+	degit_flg = 0;
 	while (ft_isdigit(*(l->src + chr_pos)))
 	{
 		chr_pos++;
-		ionum_flg = 1;
+		degit_flg = 1;
 	}
 	i = 0;
 	while (i <= PIPE)
 	{
 		find = (const char*)(l->src + chr_pos);
 		rs = ft_strncmp(find, l->token_table[i], ft_strlen(l->token_table[i]));
-		if (!rs && ionum_flg && DLESS <= i && i <= GREAT)
+		if (!rs && degit_flg && DLESS <= i && i <= GREAT)
 			return (IO_NUMBER_TOKEN);
-		else if (rs == 0)
+		else if (!degit_flg && rs == 0)
 			return (i);
 		i++;
 	}

@@ -22,12 +22,10 @@ static void	set_token_table(char token_table[14][10])
 
 void	do_print_token(t_token *token, char token_table[14][10])
 {
-	char	*type;
 
 	while (token != NULL)
 	{
-		type = token_table[token->type];
-		if (!ft_strncmp(token->value,"\n",2) && !ft_strncmp(type,"\n",2))
+		if (!ft_strncmp(token->value,"\n",2) && !ft_strncmp(token_table[token->type],"\n",2))
 		{
 			printf("value:\t%s\n", "new_line");
 			printf("token_type:\t%s\n", "new_line");
@@ -35,7 +33,7 @@ void	do_print_token(t_token *token, char token_table[14][10])
 		else
 		{
 			printf("value:\t%s\n", token->value);
-			printf("token_type:\t%s\n", type);
+			printf("token_type:\t%s\n", token_table[token->type]);
 		}
 		token = token->next;
 	}
