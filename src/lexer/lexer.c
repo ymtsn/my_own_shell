@@ -1,10 +1,5 @@
 #include "mysh_lexer.h"
 #include "libft.h"
-#define WHITE_SPACE 1
-#define READ_WORD 2
-#define STRING_END 3
-#define IO_NUM_POSSIBLE 4
-#define ERROR 5
 #include <stdio.h>
 
 int	get_token_type(t_lexer *l, size_t chr_pos)
@@ -49,6 +44,7 @@ void	set_lexer_state(t_lexer *lexer)
 
 static void	skip_whitespace(t_lexer *lexer)
 {
+	set_lexer_state(lexer);
 	if (lexer->state != WHITE_SPACE)
 		return ;
 	while (lexer->state == WHITE_SPACE)
@@ -71,7 +67,6 @@ static void	get_word_len_and_token_type(t_lexer *lexer)
 		while (ft_isdigit(*(lexer->src + lexer->current_pos)))
 			lexer->current_pos++;
 		lexer->token_type = IO_NUMBER_TOKEN;
-		set_lexer_state(lexer);
 		return ;
 	}
 	if (DLESS <= token_type && token_type <= PIPE)
@@ -79,8 +74,7 @@ static void	get_word_len_and_token_type(t_lexer *lexer)
 		lexer->current_pos++;
 		if (DLESS <= token_type && token_type <= GREATAND)
 			lexer->current_pos++;
-		lexer->token_type = token_type;
-		set_lexer_state(lexer);
+		lexer->token_type = token_type;		
 		return ;
 	}
 	while (token_type == WORD_TOKEN && lexer->state == READ_WORD)

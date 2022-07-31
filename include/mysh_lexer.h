@@ -1,6 +1,12 @@
 #ifndef MYSH_LEXER_H
 #define MYSH_LEXER_H
 #include <stddef.h>
+#define LEXER_INIT 0
+#define WHITE_SPACE 1
+#define READ_WORD 2
+#define STRING_END 3
+#define IO_NUM_POSSIBLE 4
+#define ERROR 5
 typedef enum{
 	DLESS,		/* '<<' */
 	DGREAT,		/* '>>' */

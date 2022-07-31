@@ -24,7 +24,7 @@ void	init_lexer(t_lexer *lexer, char **src)
 {
 	lexer->current_pos = 0;
 	lexer->word_start_pos = 0;
+	lexer->state = LEXER_INIT;
 	lexer->src = *src;
 	set_lexer_token_table(lexer);
-	set_lexer_state(lexer);
 }
