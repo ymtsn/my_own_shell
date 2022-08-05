@@ -174,7 +174,7 @@ t_cmdlst	*simple_command(t_token **token)
 	parent->child = cmd_prefix(token);
 	parent->sibling = create_new_node(CMD_WORD_HEAD, NONE);
 	parent->sibling->child = cmd_word(token);
-	parent->sibling->sibling =  create_new_node(CMD_SUFFIX_HRAD, NONE);
+	parent->sibling->sibling =  create_new_node(CMD_SUFFIX_HEAD, NONE);
 	parent->sibling->sibling->child = cmd_suffix(token);
 	return (parent);
 }

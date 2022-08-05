@@ -7,12 +7,12 @@ char	*get_input()
 	char	*src;
 
 	src = get_next_line(1);
-	if (src == NULL)
-		return (NULL);
+	while (src == NULL)
+		src = get_next_line(1);
 	if (src[0] == '\n')
 	{
 		free(src);
 		return (NULL);
 	}
-	return src;
+	return (src);
 }

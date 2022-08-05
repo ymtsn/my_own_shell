@@ -55,6 +55,7 @@ static void	make_pipe_recursive(t_cmdlst *cmdlst, size_t cmd_count)
 		close(fd[WRITE_END]);
 		dup2(fd[READ_END], STDIN_FILENO);
 		close(fd[READ_END]);
+		waitpid(pid, NULL, 0);
 		exec_pipe_execve(cmdlst, cmd_count);
 	}
 }
@@ -79,7 +80,7 @@ void	exec_pipe(t_cmdlst *cmdlst)
 	if (waitpid(pid, &status, 0) < 0)
 	{
 		perror("waitpid error at exec_pipe");
-		exit(1);		
+		exit(1);
 	}
 }
 

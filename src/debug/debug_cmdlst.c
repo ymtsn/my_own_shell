@@ -11,7 +11,7 @@ static void	init_node_type_table(char table[15][16])
 	(void)ft_strlcpy(table[CMD_PREFIX], "CMD_PREFIX", 16);
 	(void)ft_strlcpy(table[CMD_PREFIX_HEAD], "CMD_PREFIX_HEAD", 16);
 	(void)ft_strlcpy(table[CMD_SUFFIX], "CMD_SUFFIX", 16);
-	(void)ft_strlcpy(table[CMD_SUFFIX_HRAD], "CMD_SUFFIX_HEAD", 16);
+	(void)ft_strlcpy(table[CMD_SUFFIX_HEAD], "CMD_SUFFIX_HEAD", 16);
 	(void)ft_strlcpy(table[CMD_WORD], "CMD_WORD", 16);
 	(void)ft_strlcpy(table[CMD_WORD_HEAD], "CMD_WORD_HEAD", 16);
 	(void)ft_strlcpy(table[ARG_WORD], "ARG_WORD\t", 16);

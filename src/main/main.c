@@ -16,8 +16,6 @@ static void	free_variables(char * src, t_token *tkn, t_cmdlst *cmd)
 	free_cmdlst(cmd);
 }
 
-/* 	print_token(token); */
-/* 	print_cmdlst(cmdlst); */
 static void cmdline_loop(void)
 {
 	char		*src;
@@ -32,7 +30,10 @@ static void cmdline_loop(void)
 		{
 			token = lexer(src);
 			cmdlst = parser(token);
- 			executer(cmdlst);
+			if (check_debug_mode(cmdlst))
+				debug_print(token, cmdlst);
+			else
+ 				executer(cmdlst);
 			free_variables(src, token, cmdlst);
 		}
 	}

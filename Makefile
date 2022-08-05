@@ -61,7 +61,7 @@ REDIRECT_SRC_FULLNAME	=	$(addprefix ./src/redirect/, $(REDIRECT_SRC))
 REDIRECT_OBJ			=	$(REDIRECT_SRC:.c=.o)
 REDIRECT_OBJ_FULLNAME	=	$(addprefix ./obj/mysh/, $(REDIRECT_OBJ))
 
-DEBUG_SRC				=	debug_cmdlst.c debug_token.c
+DEBUG_SRC				=	check_debug_mode.c debug_cmdlst.c debug_token.c
 DEBUG_DIR				=	./src/debug
 DEBUG_SRC_FULLNAME		=	$(addprefix ./src/debug/, $(DEBUG_SRC))
 DEBUG_OBJ				=	$(DEBUG_SRC:.c=.o)
