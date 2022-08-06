@@ -43,7 +43,7 @@ PARSER_SRC_FULLNAME		=	$(addprefix ./src/parser/, $(PARSER_SRC))
 PARSER_OBJ				=	$(PARSER_SRC:.c=.o)
 PARSER_OBJ_FULLNAME		=	$(addprefix ./obj/mysh/, $(PARSER_OBJ))
 
-EXECUTER_SRC			=	executer.c executer_utils.c get_argv.c get_path.c
+EXECUTER_SRC			=	executer.c get_argv.c get_path.c
 EXECUTER_DIR			=	./src/executer
 EXECUTER_SRC_FULLNAME	=	$(addprefix ./src/executer/, $(EXECUTER_SRC))
 EXECUTER_OBJ			=	$(EXECUTER_SRC:.c=.o)
@@ -61,11 +61,11 @@ REDIRECT_SRC_FULLNAME	=	$(addprefix ./src/redirect/, $(REDIRECT_SRC))
 REDIRECT_OBJ			=	$(REDIRECT_SRC:.c=.o)
 REDIRECT_OBJ_FULLNAME	=	$(addprefix ./obj/mysh/, $(REDIRECT_OBJ))
 
-DEBUG_SRC				=	check_debug_mode.c debug_cmdlst.c debug_token.c
-DEBUG_DIR				=	./src/debug
-DEBUG_SRC_FULLNAME		=	$(addprefix ./src/debug/, $(DEBUG_SRC))
-DEBUG_OBJ				=	$(DEBUG_SRC:.c=.o)
-DEBUG_OBJ_FULLNAME		=	$(addprefix ./obj/mysh/, $(DEBUG_OBJ))
+UTILS_SRC				=	check_debug_mode.c debug_cmdlst.c debug_token.c get_node_utils.c
+UTILS_DIR				=	./src/utils
+UTILS_SRC_FULLNAME		=	$(addprefix ./src/utils/, $(UTILS_SRC))
+UTILS_OBJ				=	$(UTILS_SRC:.c=.o)
+UTILS_OBJ_FULLNAME		=	$(addprefix ./obj/mysh/, $(UTILS_OBJ))
 
 OBJ_FILE_LIST			=	$(MAIN_OBJ_FULLNAME) \
 							$(PROMPT_OBJ_FULLNAME) \
@@ -75,7 +75,7 @@ OBJ_FILE_LIST			=	$(MAIN_OBJ_FULLNAME) \
 							$(EXECUTER_OBJ_FULLNAME) \
 							$(PIPE_OBJ_FULLNAME) \
 							$(REDIRECT_OBJ_FULLNAME) \
-							$(DEBUG_OBJ_FULLNAME)
+							$(UTILS_OBJ_FULLNAME)
 
 all:make-libft $(NAME)
 
@@ -114,7 +114,7 @@ $(OBJ_DIR)/%.o:$(REDIRECT_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)
 	$(CC) $(COMPILE_FLGS) -c $^ -o $@
 
-$(OBJ_DIR)/%.o:$(DEBUG_DIR)/%.c
+$(OBJ_DIR)/%.o:$(UTILS_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)
 	$(CC) $(COMPILE_FLGS) -c $^ -o $@
 

@@ -2,6 +2,7 @@
 #include "mysh_parser.h"
 #include "mysh_executer.h"
 #include "mysh_redirect.h"
+#include "mysh_utils.h"
 #include "libft.h"
 #include <unistd.h>
 #include <stdio.h>

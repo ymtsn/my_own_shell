@@ -1,7 +1,6 @@
 #include <stddef.h>
 #include "mysh_lexer.h"
 #include "mysh_parser.h"
-#include "mysh_debug.h"
 #include <stdio.h>
 
 /* void	here_end(t_token *token, t_cmdlst *node)

@@ -2,7 +2,7 @@
 #include "mysh_lexer.h"
 #include "mysh_parser.h"
 #include "mysh_executer.h"
-#include "mysh_debug.h"
+#include "mysh_utils.h"
 #include <stdio.h>
 
 int		check_debug_mode(t_cmdlst *cmd_top)
