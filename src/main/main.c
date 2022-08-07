@@ -1,3 +1,4 @@
+#include "mysh_envlist.h"
 #include "mysh_prompt.h"
 #include "mysh_get_input.h"
 #include "mysh_lexer.h"
@@ -18,10 +19,12 @@ static void	free_variables(char * src, t_token *tkn, t_cmdlst *cmd)
 
 static void cmdline_loop(void)
 {
+	t_envlist	*envlist;
 	char		*src;
 	t_token		*token;
 	t_cmdlst	*cmdlst;
 
+	envlist = create_envlist();
 	while (1)
 	{
 		prompt();

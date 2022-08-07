@@ -61,6 +61,13 @@ REDIRECT_SRC_FULLNAME	=	$(addprefix ./src/redirect/, $(REDIRECT_SRC))
 REDIRECT_OBJ			=	$(REDIRECT_SRC:.c=.o)
 REDIRECT_OBJ_FULLNAME	=	$(addprefix ./obj/mysh/, $(REDIRECT_OBJ))
 
+ENVLIST_SRC				=	add_envlist_keyval.c convert_envlist_to_char.c create_envlist.c debug_envlist.c \
+							delete_envlist_keyval.c lookup_envlist.c
+ENVLIST_DIR				=	./src/envlist
+ENVLIST_SRC_FULLNAME	=	$(addprefix ./src/envlist/, $(ENVLIST_SRC))
+ENVLIST_OBJ				=	$(ENVLIST_SRC:.c=.o)
+ENVLIST_OBJ_FULLNAME	=	$(addprefix ./obj/mysh/, $(ENVLIST_OBJ))
+
 UTILS_SRC				=	check_debug_mode.c debug_cmdlst.c debug_token.c get_node_utils.c
 UTILS_DIR				=	./src/utils
 UTILS_SRC_FULLNAME		=	$(addprefix ./src/utils/, $(UTILS_SRC))
@@ -75,6 +82,7 @@ OBJ_FILE_LIST			=	$(MAIN_OBJ_FULLNAME) \
 							$(EXECUTER_OBJ_FULLNAME) \
 							$(PIPE_OBJ_FULLNAME) \
 							$(REDIRECT_OBJ_FULLNAME) \
+							$(ENVLIST_OBJ_FULLNAME) \
 							$(UTILS_OBJ_FULLNAME)
 
 all:make-libft $(NAME)
@@ -111,6 +119,10 @@ $(OBJ_DIR)/%.o:$(PIPE_DIR)/%.c
 	$(CC) $(COMPILE_FLGS) -c $^ -o $@
 
 $(OBJ_DIR)/%.o:$(REDIRECT_DIR)/%.c
+	@mkdir -p $(OBJ_DIR)
+	$(CC) $(COMPILE_FLGS) -c $^ -o $@
+
+$(OBJ_DIR)/%.o:$(ENVLIST_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)
 	$(CC) $(COMPILE_FLGS) -c $^ -o $@
 
