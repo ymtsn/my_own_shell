@@ -1,3 +1,4 @@
+#include "mysh_envlst.h"
 #include "mysh_lexer.h"
 #include "mysh_parser.h"
 #include "mysh_executer.h"
@@ -7,24 +8,30 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-char	*get_path(t_cmdlst *cmd_tree)
+char	*get_path(t_envlst *envlst, t_cmdlst *cmdlst)
 {
+	char	*path;
 	char	*find;
 	char	*rtn;
-	char	*path;
 	char	**pathlist;
 
-	find = get_node_value(cmd_tree, CMD_WORD);
-	find = ft_strjoin("/", find);
-	path = getenv("PATH");
-	pathlist = ft_split(path, ':');
+	find = get_node_value(cmdlst, CMD_WORD);
+	if (find == NULL)
+		return (NULL);
+	path = ft_strjoin("/", find);
+	if (path == NULL)
+		return (NULL);
+	envlst = lookup_envlst(envlst, "PATH");
+	if (envlst == NULL)
+		return (NULL);
+	pathlist = ft_split(envlst->keyval + 5, ':');
 	while(*pathlist != NULL)
 	{
-		rtn = ft_strjoin(*pathlist, find);
+		rtn = ft_strjoin(*pathlist, path);
 		if (access(rtn, F_OK | X_OK) != -1)
 			return (rtn);
 		free(rtn);
-		(void)*pathlist++;
+		pathlist++;
 	}
 	return (NULL);
 }

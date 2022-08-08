@@ -1,4 +1,4 @@
-#include "mysh_envlist.h"
+#include "mysh_envlst.h"
 #include "mysh_prompt.h"
 #include "mysh_get_input.h"
 #include "mysh_lexer.h"
@@ -17,27 +17,27 @@ static void	free_variables(char * src, t_token *tkn, t_cmdlst *cmd)
 	free_cmdlst(cmd);
 }
 
-static void cmdline_loop(void)
+static void	cmdline_loop(void)
 {
-	t_envlist	*envlist;
+	t_envlst	*envlst;
 	char		*src;
-	t_token		*token;
+	t_token		*tokenlst;
 	t_cmdlst	*cmdlst;
 
-	envlist = create_envlist();
+	envlst = create_envlst();
 	while (1)
 	{
 		prompt();
 		src = get_input();
 		if (src != NULL)
 		{
-			token = lexer(src);
-			cmdlst = parser(token);
+			tokenlst = lexer(src);
+			cmdlst = parser(tokenlst);
 			if (check_debug_mode(cmdlst))
-				debug_print(token, cmdlst);
+				debug_print(tokenlst, cmdlst);
 			else
- 				executer(cmdlst);
-			free_variables(src, token, cmdlst);
+ 				executer(envlst, cmdlst);
+			free_variables(src, tokenlst, cmdlst);
 		}
 	}
 }

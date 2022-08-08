@@ -1,3 +1,4 @@
+#include "mysh_envlst.h"
 #include "mysh_lexer.h"
 #include "mysh_parser.h"
 #include "mysh_executer.h"
@@ -9,7 +10,7 @@
 #define READ_END	0
 #define WRITE_END	1
 
-static void	exec_pipe_execve(t_cmdlst	*cmdlst, size_t cmd_count)
+static void	exec_pipe_execve(t_envlst *envlst, t_cmdlst *cmdlst, size_t cmd_count)
 {
 	cmd_count--;
 	while (cmd_count)
@@ -17,7 +18,7 @@ static void	exec_pipe_execve(t_cmdlst	*cmdlst, size_t cmd_count)
 		cmdlst = cmdlst->sibling;
 		cmd_count--;
 	}
-	my_execve(cmdlst);
+	my_execve(envlst, cmdlst);
 }
 
 static size_t	get_pipe_count(t_cmdlst	*cmdlst)
@@ -33,13 +34,13 @@ static size_t	get_pipe_count(t_cmdlst	*cmdlst)
 	return (pipe_count);
 }
 
-static void	make_pipe_recursive(t_cmdlst *cmdlst, size_t cmd_count)
+static void	make_pipe_recursive(t_envlst *envlst, t_cmdlst *cmdlst, size_t cmd_count)
 {
 	pid_t	pid;
 	int		fd[2];
 
 	if (cmd_count == 1)
-		my_execve(cmdlst);
+		my_execve(envlst, cmdlst);
 	pipe(fd);
 	pid = fork();
 	if (pid == 0)
@@ -48,7 +49,7 @@ static void	make_pipe_recursive(t_cmdlst *cmdlst, size_t cmd_count)
 		dup2(fd[WRITE_END], STDOUT_FILENO);
 		close(fd[WRITE_END]);
 		cmd_count--;
-		make_pipe_recursive(cmdlst, cmd_count);
+		make_pipe_recursive(envlst, cmdlst, cmd_count);
 	}
 	else
 	{
@@ -56,11 +57,11 @@ static void	make_pipe_recursive(t_cmdlst *cmdlst, size_t cmd_count)
 		dup2(fd[READ_END], STDIN_FILENO);
 		close(fd[READ_END]);
 		waitpid(pid, NULL, 0);
-		exec_pipe_execve(cmdlst, cmd_count);
+		exec_pipe_execve(envlst, cmdlst, cmd_count);
 	}
 }
 
-void	exec_pipe(t_cmdlst *cmdlst)
+void	exec_pipe(t_envlst *envlst, t_cmdlst *cmdlst)
 {
 	size_t		cmd_count;
 	pid_t		pid;
@@ -76,7 +77,7 @@ void	exec_pipe(t_cmdlst *cmdlst)
 		exit(1);
 	}
 	else if (pid == 0)
-		make_pipe_recursive(cmdlst, cmd_count);
+		make_pipe_recursive(envlst, cmdlst, cmd_count);
 	if (waitpid(pid, &status, 0) < 0)
 	{
 		perror("waitpid error at exec_pipe");

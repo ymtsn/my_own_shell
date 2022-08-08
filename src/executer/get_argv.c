@@ -1,3 +1,4 @@
+#include "mysh_envlst.h"
 #include "mysh_lexer.h"
 #include "mysh_parser.h"
 #include "mysh_executer.h"

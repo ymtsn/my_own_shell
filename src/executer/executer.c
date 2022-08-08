@@ -1,3 +1,4 @@
+#include "mysh_envlst.h"
 #include "mysh_lexer.h"
 #include "mysh_parser.h"
 #include "mysh_executer.h"
@@ -8,24 +9,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-extern char	**environ;
-
-void	my_execve(t_cmdlst *cmdlst)
+void	my_execve(t_envlst *envlst, t_cmdlst *cmdlst)
 {
-	char		**argv;
-	char		*path;
+	char	**argv;
+	char	*path;
+	char	**my_environ;
 
 	exec_redirect(cmdlst);
-	path = get_path(cmdlst);
+	path = get_path(envlst, cmdlst);
 	argv = get_argv(cmdlst);
-	if (execve(path, argv, environ) == -1)
+	my_environ = convert_envlst_to_char(envlst);
+	if (execve(path, argv, my_environ) == -1)
 	{
 		perror("execve error\n");
 		exit(EXIT_FAILURE);
 	}
 }
 
-void	exec_simple_command(t_cmdlst *cmd_tree)
+void	exec_simple_command(t_envlst *envlst, t_cmdlst *cmdlist)
 {
 	pid_t	pid;
 	int		status;
@@ -38,7 +39,7 @@ void	exec_simple_command(t_cmdlst *cmd_tree)
 	}
 	else if (pid == 0)
 	{
-		my_execve(cmd_tree);
+		my_execve(envlst, cmdlist);
 	}
 	if (waitpid(pid, &status, 0) < 0)
 	{
@@ -47,10 +48,10 @@ void	exec_simple_command(t_cmdlst *cmd_tree)
 	}
 }
 
-void	executer(t_cmdlst *cmdlst)
+void	executer(t_envlst *envlst, t_cmdlst *cmdlst)
 {
 	if (cmdlst->node_type == SIMPLE_COMMAND)
-		exec_simple_command(cmdlst);
+		exec_simple_command(envlst, cmdlst);
 	if (cmdlst->node_type == PIPELINE)
-		exec_pipe(cmdlst);
+		exec_pipe(envlst, cmdlst);
 }

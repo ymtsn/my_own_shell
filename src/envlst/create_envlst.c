@@ -1,15 +1,15 @@
-#include "mysh_envlist.h"
+#include "mysh_envlst.h"
 #include "libft.h"
 #include <stdlib.h>
 #include <stdio.h>
 
-extern char **environ;
+extern char	**environ;
 
-t_envlist	*make_envvar(int type, char *keyval)
+t_envlst	*make_envvar(int type, char *keyval)
 {
-	t_envlist	*new;
+	t_envlst	*new;
 
-	new = malloc(sizeof(t_envlist));
+	new = malloc(sizeof(t_envlst));
 	if (new == NULL)
 	{
 		perror("malloc fail at make_env");
@@ -29,20 +29,20 @@ t_envlist	*make_envvar(int type, char *keyval)
 	return (new);
 }
 
-t_envlist	*create_envlist()
+t_envlst	*create_envlst()
 {
-	t_envlist	*envlist;
-	t_envlist	*save;
+	t_envlst	*envlst;
+	t_envlst	*save;
 
 	if (environ == NULL)
 		return (NULL);
-	envlist = make_envvar(head, NULL);
-	save = envlist;
+	envlst = make_envvar(head, NULL);
+	save = envlst;
 	while (*environ != NULL)
 	{
-		envlist->next = make_envvar(env_variable, *environ);
-		envlist->next->prev = envlist;
-		envlist = envlist->next;
+		envlst->next = make_envvar(env_variable, *environ);
+		envlst->next->prev = envlst;
+		envlst = envlst->next;
 		environ++;
 	}
 	return (save);

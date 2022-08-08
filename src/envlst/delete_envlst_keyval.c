@@ -1,14 +1,14 @@
-#include "mysh_envlist.h"
+#include "mysh_envlst.h"
 #include <stdlib.h>
 #include <stdio.h>
 
-void	delete_envlist_keyval(t_envlist *envlist, char *find)
+void	delete_envlst_keyval(t_envlst *envlst, char *find)
 {
-	t_envlist	*target;
+	t_envlst	*target;
 
-	if (envlist == NULL || find == NULL)
+	if (envlst == NULL || find == NULL)
 		return ;
-	target = lookup_envlist(envlist, find);
+	target = lookup_envlst(envlst, find);
 	if (target == NULL)
 		return ;
 	if (target->prev != NULL)
