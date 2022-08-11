@@ -7,6 +7,8 @@
 #define STRING_END 3
 #define IO_NUM_POSSIBLE 4
 #define ERROR 5
+#define NOT_PARSE 0
+#define PARSE_DONE 1
 typedef enum{
 	DLESS,		/* '<<' */
 	DGREAT,		/* '>>' */
@@ -26,6 +28,7 @@ typedef enum{
 }	e_token_type;
 typedef struct s_token{
 	e_token_type	type;
+	int				parse_done_flg;
 	char			*value;
 	struct s_token	*next;
 }	t_token;

@@ -9,6 +9,7 @@ static t_token	*create_new_token(t_lexer *lexer)
 	new_token = (t_token *)malloc(sizeof(t_token));
 	new_token->next = NULL;
 	new_token->type = lexer->token_type;
+	new_token->parse_done_flg = NOT_PARSE;
 	len = lexer->current_pos - lexer->word_start_pos;
 	new_token->value = ft_substr(lexer->src, lexer->word_start_pos, len);
 	return (new_token);

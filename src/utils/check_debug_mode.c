@@ -7,20 +7,16 @@
 int		check_debug_mode(t_cmdlst *cmd_top)
 {
 	t_cmdlst	*suffix;
-	t_cmdlst	*save;
 
 	if (cmd_top == NULL)
 		return (0);
 	while (cmd_top->sibling != NULL)
 		cmd_top = cmd_top->sibling;
-	suffix = get_node_iterate(cmd_top->node_num, cmd_top, ARG_WORD);
-	while (suffix != NULL)
-	{
-		save = suffix;
-		suffix = get_node_iterate(suffix->node_num, cmd_top, ARG_WORD);
-	}
-	if (save != NULL && save->value != NULL)
-		if (ft_strncmp((const char*)save->value, \
+	suffix = get_node(cmd_top, CMD_SUFFIX);
+	while (suffix->child != NULL)
+		suffix = suffix->child;
+	if (suffix != NULL && suffix->value != NULL)
+		if (ft_strncmp((const char*)suffix->value, \
 		(const char*)"--debug", 7) == 0)
 			return (1);
 	return (0);
