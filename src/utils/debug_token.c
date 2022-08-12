@@ -29,13 +29,13 @@ void	do_print_token(t_token *token, char token_table[14][10])
 	{
 		if (!ft_strncmp(token->value,"\n",2) && !ft_strncmp(token_table[token->type],"\n",2))
 		{
-			printf("value:\t%s\n", "new_line");
-			printf("token_type:\t%s\n", "new_line");
+			printf("value:\e[33m%s\e[0m ", "new_line");
+			printf("token_type:\e[31m%s\e[0m\n", "new_line");
 		}
 		else
 		{
-			printf("value:\t%s\n", token->value);
-			printf("token_type:\t%s\n", token_table[token->type]);
+			printf("value:\e[33m%s\e[0m ", token->value);
+			printf("token_type:\e[31m%s\e[0m\n", token_table[token->type]);
 		}
 		token = token->next;
 	}
@@ -46,5 +46,6 @@ void	print_token(t_token *token)
 	char	token_table[14][10];
 
 	set_token_table(token_table);
+	printf("++-- \e[3myour tokenlst\e[0m --++\n");
 	do_print_token(token, token_table);
 }

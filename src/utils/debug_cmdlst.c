@@ -15,7 +15,7 @@ static void	init_node_type_table(char table[15][16])
 	(void)ft_strlcpy(table[CMD_SUFFIX_HEAD], "CMD_SUFFIX_HEAD", 16);
 	(void)ft_strlcpy(table[CMD_WORD], "CMD_WORD", 16);
 	(void)ft_strlcpy(table[CMD_WORD_HEAD], "CMD_WORD_HEAD", 16);
-	(void)ft_strlcpy(table[ARG_WORD], "ARG_WORD\t", 16);
+	(void)ft_strlcpy(table[ARG_WORD], "ARG_WORD", 16);
 	(void)ft_strlcpy(table[IO_REDIRECT], "IO_REDIRECT", 16);
 	(void)ft_strlcpy(table[IO_FILE], "IO_FILE", 16);
 	(void)ft_strlcpy(table[IO_NUMBER], "IO_NUMBER", 16);
@@ -43,17 +43,27 @@ static void	init_token_type_table(char table[15][10])
 	(void)ft_strlcpy(table[NONE], "none",5);
 }
 
-void	get_childnode(t_cmdlst *cmdlst, char node[15][16], char token[15][10])
+static void	print_node(t_cmdlst *cmdlst, char node[15][16], char token[15][10])
 {
 	if (cmdlst == NULL)
 		return;
-	printf("node_type: %s\t", node[cmdlst->node_type]);
-	printf("value: %s\t", cmdlst->value);
-	printf("token_type: %s\t", token[cmdlst->token_type]);
-	printf("node_number: %zu\n", cmdlst->node_num);
-	get_childnode(cmdlst->child, node, token);
+	if (cmdlst->value == NULL)
+	{
+		printf("node_type:%s ", node[cmdlst->node_type]);
+		printf("value:%s ", cmdlst->value);
+		printf("token_type:%s ", token[cmdlst->token_type]);
+		printf("node_number:%zu \n", cmdlst->node_num);
+	}
+	else
+	{
+		printf("node_type:\e[33m%s\e[0m ", node[cmdlst->node_type]);
+		printf("value:\e[31m%s\e[0m ", cmdlst->value);
+		printf("token_type:\e[33m%s\e[0m ", token[cmdlst->token_type]);
+		printf("node_number:%zu \n", cmdlst->node_num);
+	}
+	print_node(cmdlst->child, node, token);
 	if (cmdlst->sibling != NULL)
-		get_childnode(cmdlst->sibling, node, token);
+		print_node(cmdlst->sibling, node, token);
 }
 
 void	print_cmdlst(t_cmdlst *cmdlst)
@@ -63,5 +73,6 @@ void	print_cmdlst(t_cmdlst *cmdlst)
 
 	init_node_type_table(node);
 	init_token_type_table(token);
-	get_childnode(cmdlst, node, token);
+	printf("++-- \e[3myour cmdlst\e[0m --++\n");
+	print_node(cmdlst, node, token);
 }
