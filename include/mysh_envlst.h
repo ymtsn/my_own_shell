@@ -1,17 +1,5 @@
 #ifndef MYSH_ENVLST
 #define MYSH_ENVLST
-typedef enum{
-	shell_variable,
-	env_variable,
-	exit_code,
-	head,
-} e_var_type;
-typedef struct s_envlst{
-	char 				*keyval;
-	e_var_type			variable_type;
-	struct s_envlst	*prev;
-	struct s_envlst	*next;
-} t_envlst;
 t_envlst	*create_envlst();
 void		print_envlst(t_envlst *envlst);
 void		print_char_envlst(char **envlst);

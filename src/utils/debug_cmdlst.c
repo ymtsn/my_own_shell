@@ -1,5 +1,4 @@
-#include "mysh_lexer.h"
-#include "mysh_parser.h"
+#include "mysh_def.h"
 #include "mysh_utils.h"
 #include "libft.h"
 #include <stdlib.h>
@@ -26,27 +25,27 @@ static void	init_node_type_table(char table[15][16])
 
 static void	init_token_type_table(char table[15][10])
 {
-	(void)ft_strlcpy(table[DLESS], "<<",3);
-	(void)ft_strlcpy(table[DGREAT], ">>",3);
+	(void)ft_strlcpy(table[DLESS], "<<", 3);
+	(void)ft_strlcpy(table[DGREAT], ">>", 3);
 	(void)ft_strlcpy(table[DGREATAND], ">>&", 4);
-	(void)ft_strlcpy(table[LESSAND], "<&",3);
-	(void)ft_strlcpy(table[GREATAND], ">&",3);
+	(void)ft_strlcpy(table[LESSAND], "<&", 3);
+	(void)ft_strlcpy(table[GREATAND], ">&", 3);
 	(void)ft_strlcpy(table[ANDGREAT], "&>", 3);
-	(void)ft_strlcpy(table[ASSIGNMENT_WORD], "=\0",3);
-	(void)ft_strlcpy(table[NEWLINE], "\n",2);
-	(void)ft_strlcpy(table[PIPE], "|",2);
-	(void)ft_strlcpy(table[LESS], "<",2);
-	(void)ft_strlcpy(table[GREAT], ">",2);
-	(void)ft_strlcpy(table[IO_NUMBER_TOKEN], "io_number",10);
-	(void)ft_strlcpy(table[NAME], "name",5);
-	(void)ft_strlcpy(table[WORD_TOKEN], "word",5);
-	(void)ft_strlcpy(table[NONE], "none",5);
+	(void)ft_strlcpy(table[ASSIGNMENT_WORD], "=\0", 3);
+	(void)ft_strlcpy(table[NEWLINE], "\n", 2);
+	(void)ft_strlcpy(table[PIPE], "|", 2);
+	(void)ft_strlcpy(table[LESS], "<", 2);
+	(void)ft_strlcpy(table[GREAT], ">", 2);
+	(void)ft_strlcpy(table[IO_NUMBER_TOKEN], "io_number", 10);
+	(void)ft_strlcpy(table[NAME], "name", 5);
+	(void)ft_strlcpy(table[WORD_TOKEN], "word", 5);
+	(void)ft_strlcpy(table[NONE], "none", 5);
 }
 
 static void	print_node(t_cmdlst *cmdlst, char node[15][16], char token[15][10])
 {
 	if (cmdlst == NULL)
-		return;
+		return ;
 	if (cmdlst->value == NULL)
 	{
 		printf("node_type:%s ", node[cmdlst->node_type]);

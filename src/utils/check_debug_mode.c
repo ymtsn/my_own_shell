@@ -1,7 +1,6 @@
-#include "libft.h"
-#include "mysh_lexer.h"
-#include "mysh_parser.h"
+#include "mysh_def.h"
 #include "mysh_utils.h"
+#include "libft.h"
 #include <stdio.h>
 
 int		check_debug_mode(t_cmdlst *cmd_top)

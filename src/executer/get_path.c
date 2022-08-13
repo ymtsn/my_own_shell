@@ -1,7 +1,5 @@
+#include "mysh_def.h"
 #include "mysh_envlst.h"
-#include "mysh_lexer.h"
-#include "mysh_parser.h"
-#include "mysh_executer.h"
 #include "mysh_utils.h"
 #include "libft.h"
 #include <unistd.h>
@@ -25,7 +23,7 @@ char	*get_path(t_envlst *envlst, t_cmdlst *cmdlst)
 	if (envlst == NULL)
 		return (NULL);
 	pathlist = ft_split(envlst->keyval + 5, ':');
-	while(*pathlist != NULL)
+	while (*pathlist != NULL)
 	{
 		rtn = ft_strjoin(*pathlist, path);
 		if (access(rtn, F_OK | X_OK) != -1)

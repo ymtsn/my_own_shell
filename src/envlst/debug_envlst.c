@@ -1,8 +1,4 @@
-#include "libft.h"
-#include "mysh_envlst.h"
-#include "mysh_lexer.h"
-#include "mysh_parser.h"
-#include "mysh_utils.h"
+#include "mysh_def.h"
 #include <stdio.h>
 
 void	print_envlst(t_envlst *envlst)

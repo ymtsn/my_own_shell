@@ -1,5 +1,4 @@
-#include "mysh_envlst.h"
-#include "libft.h"
+#include "mysh_def.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -29,7 +28,7 @@ char	**convert_envlst_to_char(t_envlst *envlst)
 	if (rtn == NULL)
 	{
 		perror("malloc fail at convert_envrist_to_char");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	save = rtn;
 	while (envlst != NULL)

@@ -145,6 +145,8 @@ fclean:clean
 
 re:fclean all
 
-.PHONY:all make-libft clean fclean re
+norm:
+
+.PHONY:all make-libft clean fclean re norm
 
 -include $(DEPEND_FILE_LIST)

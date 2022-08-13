@@ -1,5 +1,5 @@
+#include "mysh_def.h"
 #include "libft.h"
-#include "mysh_lexer.h"
 
 void	free_token(t_token *token)
 {
