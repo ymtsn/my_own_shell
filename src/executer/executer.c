@@ -21,7 +21,7 @@ void	my_execve(t_envlst *envlst, t_cmdlst *cmdlst)
 	my_environ = convert_envlst_to_char(envlst);
 	if (execve(path, argv, my_environ) == -1)
 	{
-		perror("execve error\n");
+		perror("execve error");
 		exit(EXIT_FAILURE);
 	}
 }
@@ -34,7 +34,7 @@ void	exec_simple_command(t_envlst *envlst, t_cmdlst *cmdlist)
 	pid = fork();
 	if (pid < 0)
 	{
-		perror("fork error\n");
+		perror("fork error");
 		exit(EXIT_FAILURE);
 	}
 	else if (pid == 0)
@@ -43,7 +43,7 @@ void	exec_simple_command(t_envlst *envlst, t_cmdlst *cmdlist)
 	}
 	if (waitpid(pid, &status, 0) < 0)
 	{
-		perror("waitpid error\n");
+		perror("waitpid error");
 		exit (EXIT_FAILURE);
 	}
 }

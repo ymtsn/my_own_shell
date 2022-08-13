@@ -7,6 +7,11 @@ static t_token	*create_new_token(t_lexer *lexer)
 	t_token	*new_token;
 
 	new_token = (t_token *)malloc(sizeof(t_token));
+	if (new_token == NULL)
+	{
+		perror("malloc fail at create_new_token");
+		exit(EXIT_FAILURE);
+	}
 	new_token->next = NULL;
 	new_token->type = lexer->token_type;
 	new_token->parse_done_flg = NOT_PARSE;

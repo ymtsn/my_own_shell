@@ -8,24 +8,27 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-char	**get_argv(t_cmdlst *cmd_tree)
+char	**get_argv(t_cmdlst *cmdlst)
 {
 	size_t		node_count;
 	size_t		i;
-	t_cmdlst	*node;
 	char		**argv;
 
-	node = cmd_tree;
-	node_count = get_node_count(cmd_tree, ARG_WORD);
+	node_count = get_node_count(cmdlst, ARG_WORD);
 	argv = malloc(sizeof(char**)*(node_count + 1));
-	argv[0] = get_node_value(cmd_tree, CMD_WORD);
-	i = 1;
-	while (node != NULL)
+	if (argv == NULL)
 	{
-		node = get_node_iterate(node->node_num, node, ARG_WORD);
-		if (node != NULL)
+		perror("malloc fail at get_argv");
+		exit(EXIT_FAILURE);
+	}
+	argv[0] = get_node_value(cmdlst, CMD_WORD);
+	i = 1;
+	while (cmdlst != NULL)
+	{
+		cmdlst = get_node_iterate(cmdlst->node_num, cmdlst, ARG_WORD);
+		if (cmdlst != NULL)
 		{
-			argv[i] = node->value;
+			argv[i] = cmdlst->value;
 			i++;
 		}
 	}

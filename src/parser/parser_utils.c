@@ -8,6 +8,11 @@ t_cmdlst	*create_new_node(e_node_type n_type, e_token_type t_type)
 	t_cmdlst	*node;
 
 	node = (t_cmdlst *)malloc(sizeof(t_cmdlst));
+	if (node == NULL)
+	{
+		perror("malloc fail at create_new_node");
+		exit(EXIT_FAILURE);
+	}
 	node->node_num = 0;
 	node->node_type = n_type;
 	node->token_type = t_type;

@@ -13,7 +13,7 @@ t_envlst	*make_envvar(int type, char *keyval)
 	if (new == NULL)
 	{
 		perror("malloc fail at make_env");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	new->prev = NULL;
 	new->next = NULL;
@@ -24,7 +24,7 @@ t_envlst	*make_envvar(int type, char *keyval)
 	if (new->keyval == NULL)
 	{
 		perror("ft_strdup fail at make_env");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	return (new);
 }
