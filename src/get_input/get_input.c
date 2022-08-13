@@ -1,8 +1,7 @@
-
 #include <stdlib.h>
 #include "get_next_line.h"
 
-char	*get_input()
+char	*get_input(void)
 {
 	char	*src;
 

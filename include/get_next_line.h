@@ -6,12 +6,12 @@
 /*   By: ymatsuna <ymatsuna@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 18:40:06 by ymatsuna          #+#    #+#             */
-/*   Updated: 2022/06/14 08:15:09 by ymatsuna         ###   ########.fr       */
+/*   Updated: 2022/08/14 08:16:47 by ymatsuna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_BONUS_H
-# define GET_NEXT_LINE_BONUS_H
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 # define ERROR -1
 # define CONTINUE 1
 # define NOREAD 2

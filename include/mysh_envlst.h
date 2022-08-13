@@ -1,6 +1,6 @@
-#ifndef MYSH_ENVLST
-#define MYSH_ENVLST
-t_envlst	*create_envlst();
+#ifndef MYSH_ENVLST_H
+# define MYSH_ENVLST_H
+t_envlst	*create_envlst(void);
 void		print_envlst(t_envlst *envlst);
 void		print_char_envlst(char **envlst);
 void		delete_envlst_keyval(t_envlst *envlst, char *keyval);

@@ -3,7 +3,7 @@
 #include "libft.h"
 #include <stdio.h>
 
-int		check_debug_mode(t_cmdlst *cmd_top)
+int	check_debug_mode(t_cmdlst *cmd_top)
 {
 	t_cmdlst	*suffix;
 
@@ -15,8 +15,8 @@ int		check_debug_mode(t_cmdlst *cmd_top)
 	while (suffix->child != NULL)
 		suffix = suffix->child;
 	if (suffix != NULL && suffix->value != NULL)
-		if (ft_strncmp((const char*)suffix->value, \
-		(const char*)"--debug", 7) == 0)
+		if (ft_strncmp((const char *)suffix->value, \
+		(const char *)"--debug", 7) == 0)
 			return (1);
 	return (0);
 }

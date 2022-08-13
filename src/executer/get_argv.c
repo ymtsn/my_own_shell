@@ -11,7 +11,7 @@ char	**get_argv(t_cmdlst *cmdlst)
 	char		**argv;
 
 	node_count = get_node_count(cmdlst, ARG_WORD);
-	argv = malloc(sizeof(char**)*(node_count + 1));
+	argv = malloc(sizeof(char **) * (node_count + 1));
 	if (argv == NULL)
 	{
 		perror("malloc fail at get_argv");

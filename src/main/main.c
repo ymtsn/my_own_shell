@@ -35,7 +35,7 @@ static void	cmdline_loop(void)
 			if (check_debug_mode(cmdlst))
 				debug_print(tokenlst, cmdlst);
 			else
- 				executer(envlst, cmdlst);
+				executer(envlst, cmdlst);
 			free_variables(src, tokenlst, cmdlst);
 		}
 	}

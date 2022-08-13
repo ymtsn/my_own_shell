@@ -6,15 +6,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-static void	exec_pipe_execve(t_envlst *envlst, t_cmdlst *cmdlst, size_t cmd_count)
+static void	exec_pipe_execve(t_envlst *envl, t_cmdlst *cmdlst, size_t cmd_cnt)
 {
-	cmd_count--;
-	while (cmd_count)
+	cmd_cnt--;
+	while (cmd_cnt)
 	{
 		cmdlst = cmdlst->sibling;
-		cmd_count--;
+		cmd_cnt--;
 	}
-	my_execve(envlst, cmdlst);
+	my_execve(envl, cmdlst);
 }
 
 static size_t	get_pipe_count(t_cmdlst	*cmdlst)
@@ -30,12 +30,12 @@ static size_t	get_pipe_count(t_cmdlst	*cmdlst)
 	return (pipe_count);
 }
 
-static void	make_pipe_recursive(t_envlst *envlst, t_cmdlst *cmdlst, size_t cmd_count)
+static void	pipe_recursive(t_envlst *envlst, t_cmdlst *cmdlst, size_t cmd_cnt)
 {
 	pid_t	pid;
 	int		fd[2];
 
-	if (cmd_count == 1)
+	if (cmd_cnt == 1)
 		my_execve(envlst, cmdlst);
 	pipe(fd);
 	pid = fork();
@@ -44,8 +44,8 @@ static void	make_pipe_recursive(t_envlst *envlst, t_cmdlst *cmdlst, size_t cmd_c
 		close(fd[READ_END]);
 		dup2(fd[WRITE_END], STDOUT_FILENO);
 		close(fd[WRITE_END]);
-		cmd_count--;
-		make_pipe_recursive(envlst, cmdlst, cmd_count);
+		cmd_cnt--;
+		make_pipe_recursive(envlst, cmdlst, cmd_cnt);
 	}
 	else
 	{
@@ -53,7 +53,7 @@ static void	make_pipe_recursive(t_envlst *envlst, t_cmdlst *cmdlst, size_t cmd_c
 		dup2(fd[READ_END], STDIN_FILENO);
 		close(fd[READ_END]);
 		waitpid(pid, NULL, 0);
-		exec_pipe_execve(envlst, cmdlst, cmd_count);
+		exec_pipe_execve(envlst, cmdlst, cmd_cnt);
 	}
 }
 
@@ -73,11 +73,10 @@ void	exec_pipe(t_envlst *envlst, t_cmdlst *cmdlst)
 		exit(1);
 	}
 	else if (pid == 0)
-		make_pipe_recursive(envlst, cmdlst, cmd_count);
+		pipe_recursive(envlst, cmdlst, cmd_count);
 	if (waitpid(pid, &status, 0) < 0)
 	{
 		perror("waitpid error at exec_pipe");
 		exit(1);
 	}
 }
-

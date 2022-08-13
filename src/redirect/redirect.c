@@ -63,19 +63,19 @@ static void	redirect_out_fd(char *io_number, char *filename)
 	close(redirect_fd);
 }
 
-void	exec_redirect(t_cmdlst *node)
+void	exec_redirect(t_cmdlst *top_node)
 {
-	t_cmdlst	*io_redirect;
+	t_cmdlst	*node;
 	char		*io_number;
 	char		*io_file;
 	char		*filename;
 
-	io_redirect = get_node_iterate(0, node, IO_REDIRECT);
-	while (io_redirect != NULL)
+	node = get_node_iterate(0, top_node, NODE);
+	while (node != NULL)
 	{
-		io_number = get_node_value(io_redirect, IO_NUMBER);
-		io_file = get_node_value(io_redirect, IO_FILE);
-		filename = get_node_value(io_redirect, FILENAME);
+		io_number = get_node_value(node, IO_NUMBER);
+		io_file = get_node_value(node, IO_FILE);
+		filename = get_node_value(node, FILENAME);
 		if (ft_strncmp(io_file, ">>", 2) == 0)
 			redirect_out(io_number, filename, APPEND_FILE);
 		else if (ft_strncmp(io_file, ">&", 2) == 0)
@@ -86,6 +86,6 @@ void	exec_redirect(t_cmdlst *node)
 			redirect_out(io_number, filename, TRUNC_FILE);
 		else if (ft_strncmp(io_file, "<", 2) == 0)
 			redirect_in(io_number, filename);
-		io_redirect = get_node_iterate(io_redirect->node_num, node, IO_REDIRECT);
+		node = get_node_iterate(node->node_num, top_node, NODE);
 	}
 }

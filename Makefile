@@ -31,7 +31,7 @@ GET_INPUT_SRC_FULLNAME	=	$(addprefix ./src/get_input/, $(GET_INPUT_SRC))
 GET_INPUT_OBJ			=	$(GET_INPUT_SRC:.c=.o)
 GET_INPUT_OBJ_FULLNAME	=	$(addprefix ./obj/mysh/, $(GET_INPUT_OBJ))
 
-LEXER_SRC				=	change_word_to_token.c free_token.c lexer.c init_lexer.c
+LEXER_SRC				=	change_word_to_token.c free_token.c init_lexer.c lexer_utils.c lexer.c
 LEXER_DIR				=	./src/lexer
 LEXER_SRC_FULLNAME		=	$(addprefix ./src/lexer/, $(LEXER_SRC))
 LEXER_OBJ				=	$(LEXER_SRC:.c=.o)
@@ -146,6 +146,7 @@ fclean:clean
 re:fclean all
 
 norm:
+	norminette src include | grep "Error" || true
 
 .PHONY:all make-libft clean fclean re norm
 

@@ -20,7 +20,7 @@ t_envlst	*make_envvar(int type, char *keyval)
 	new->variable_type = type;
 	if (keyval == NULL)
 		return (new);
-	new->keyval = ft_strdup((const char*)keyval);
+	new->keyval = ft_strdup((const char *)keyval);
 	if (new->keyval == NULL)
 	{
 		perror("ft_strdup fail at make_env");

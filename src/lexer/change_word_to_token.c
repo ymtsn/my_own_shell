@@ -26,6 +26,8 @@ void	change_word_to_token(t_lexer *lexer, t_token **token)
 {
 	t_token	*buf;
 
+	if (lexer->state == STRING_END)
+		return ;
 	if (*token == NULL)
 	{
 		*token = create_new_token(lexer);

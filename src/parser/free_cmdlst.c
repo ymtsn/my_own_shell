@@ -5,7 +5,7 @@
 void	free_cmdlst(t_cmdlst *cmdlst)
 {
 	if (cmdlst == NULL)
-		return;
+		return ;
 	if (cmdlst->sibling != NULL)
 		free_cmdlst(cmdlst->sibling);
 	free_cmdlst(cmdlst->child);
