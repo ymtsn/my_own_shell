@@ -37,7 +37,7 @@ LEXER_SRC_FULLNAME		=	$(addprefix ./src/lexer/, $(LEXER_SRC))
 LEXER_OBJ				=	$(LEXER_SRC:.c=.o)
 LEXER_OBJ_FULLNAME		=	$(addprefix ./obj/mysh/, $(LEXER_OBJ))
 
-PARSER_SRC				=	parser.c parser_node.c free_cmdlst.c
+PARSER_SRC				=	parser.c parser_utils.c free_cmdlst.c
 PARSER_DIR				=	./src/parser
 PARSER_SRC_FULLNAME		=	$(addprefix ./src/parser/, $(PARSER_SRC))
 PARSER_OBJ				=	$(PARSER_SRC:.c=.o)

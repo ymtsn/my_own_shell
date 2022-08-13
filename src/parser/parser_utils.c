@@ -33,18 +33,8 @@ void	set_node_number(t_cmdlst *node)
 	(void)set_childnode_number(node, 0);
 }
 
-size_t	child_listsize(t_cmdlst *lst)
+void	skip_parsed_token(t_token **token)
 {
-	size_t	len;
-
-	if (lst == NULL)
-		return (0);
-	len = 0;
-	while (lst != NULL)
-	{
-		if (lst->token_type != NONE)
-			len++;
-		lst = lst->child;
-	}
-	return (len);
+	while (*token != NULL && (*token)->parse_done_flg == PARSE_DONE)
+		*token = (*token)->next;
 }

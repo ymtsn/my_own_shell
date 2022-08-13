@@ -3,12 +3,6 @@
 #include "mysh_parser.h"
 #include <stdio.h>
 
-void	skip_parsed_token(t_token **token)
-{
-	while (*token != NULL && (*token)->parse_done_flg == PARSE_DONE)
-		*token = (*token)->next;
-}
-
 t_cmdlst	*here_end(t_token *token, int suffix_flg)
 {
 	t_cmdlst	*parent;
@@ -169,6 +163,7 @@ t_cmdlst	*simple_command(t_token **token)
 	t_cmdlst	*prefix;
 	t_cmdlst	*command;
 	t_cmdlst	*suffix;
+	t_cmdlst	*rtn;
 
 	prefix = cmd_prefix(*token);
 	skip_parsed_token(token);
@@ -178,26 +173,31 @@ t_cmdlst	*simple_command(t_token **token)
 	skip_parsed_token(token);
 	prefix->sibling = command;
 	command->sibling = suffix;
-	return (prefix);
+	rtn = create_new_node(SIMPLE_COMMAND, NONE);
+	rtn->child = prefix;
+	return (rtn);
 }
 
-t_cmdlst	*pipeline(t_token *token)
+void	pipeline(t_token **token, t_cmdlst *cmdlst)
 {
-	t_cmdlst	*parent;
-	t_cmdlst	*save_parent;
-
-	parent = create_new_node(SIMPLE_COMMAND, NONE);
-	save_parent = parent;
-	parent->child = simple_command(&token);
-	while (token != NULL && token->type == PIPE)
+	cmdlst->node_type = PIPELINE;
+	while (cmdlst != NULL && *token != NULL && (*token)->type == PIPE)
 	{
-		parent->node_type = PIPELINE;
-		token = token->next;
-		parent->sibling = create_new_node(PIPELINE, NONE);
-		parent = parent->sibling;
-		parent->child = simple_command(&token);
+		*token = (*token)->next;
+		cmdlst->sibling = simple_command(token);
+		cmdlst->sibling->node_type = PIPELINE;
+		cmdlst = cmdlst->sibling;
 	}
-	return (save_parent);
+}
+
+t_cmdlst	*make_cmdlst(t_token *token)
+{
+	t_cmdlst	*cmdlst;
+
+	cmdlst = simple_command(&token);
+	if (cmdlst != NULL && token != NULL && token->type == PIPE)
+		pipeline(&token, cmdlst);
+	return (cmdlst);
 }
 
 t_cmdlst	*parser(t_token *token)
@@ -206,7 +206,7 @@ t_cmdlst	*parser(t_token *token)
 
 	if (token == NULL)
 		return (NULL);
-	parser = pipeline(token);
+	parser = make_cmdlst(token);
 	set_node_number(parser);
 	return (parser);
 }
