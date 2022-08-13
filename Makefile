@@ -1,11 +1,11 @@
 NAME 				=	mysh
 
 CC 					=	gcc
-COMPILE_FLGS		=	-Wall -Werror -Wextra $(DEBUG_FLGS) $(INCLUDE_FLGS)
+COMPILE_FLGS		=	-Wall -Werror -Wextra $(DEBUG_FLGS)
 DEBUG_FLGS			=	-g
-
 INCLUDE_DIR			=	./include
 INCLUDE_FLGS		=	-I $(INCLUDE_DIR)
+DEPEND_FLGS			=	-MMD -MP
 
 LIBFT_DIR			=	./src/libft
 LIBFT_NAME			=	libft.a
@@ -16,7 +16,7 @@ OBJ_DIR 			=	./obj/mysh
 MAIN_SRC				=	main.c
 MAIN_DIR 				=	./src/main
 MAIN_SRC_FULLNAME		=	$(addprefix ./src/main/, $(MAIN_SRC))
-MAIN_OBJ				=	main.o
+MAIN_OBJ				=	$(MAIN_SRC:.c=.o)
 MAIN_OBJ_FULLNAME		=	$(addprefix ./obj/mysh/, $(MAIN_OBJ))
 
 PROMPT_SRC				=	prompt.c
@@ -85,59 +85,66 @@ OBJ_FILE_LIST			=	$(MAIN_OBJ_FULLNAME) \
 							$(ENVLST_OBJ_FULLNAME) \
 							$(UTILS_OBJ_FULLNAME)
 
+DEPEND_FILE_LIST		=	$(OBJ_FILE_LIST:.o=.d)
+
 all:make-libft $(NAME)
 
 $(NAME): $(OBJ_FILE_LIST) $(LIBFT_FULLNAME)
 	$(CC) $(COMPILE_FLGS) $(OBJ_FILE_LIST) $(LIBFT_FULLNAME) -o $(NAME)
 
-$(MAIN_OBJ_FULLNAME):$(MAIN_SRC_FULLNAME)
-	@mkdir -p $(OBJ_DIR)
-	$(CC) $(COMPILE_FLGS) -c $^ -o $@
+$(OBJ_DIR)/%.o:$(MAIN_DIR)/%.c
+	mkdir -p $(OBJ_DIR)
+	$(CC) $(COMPILE_FLGS) $(INCLUDE_FLGS) $(DEPEND_FLGS) -o $@ -c $< 
 
 $(OBJ_DIR)/%.o:$(PROMPT_DIR)/%.c
-	@mkdir -p $(OBJ_DIR)
-	$(CC) $(COMPILE_FLGS) -c $^ -o $@
+	mkdir -p $(OBJ_DIR)
+	$(CC) $(COMPILE_FLGS) $(INCLUDE_FLGS) $(DEPEND_FLGS) -o $@ -c $<
 
 $(OBJ_DIR)/%.o:$(GET_INPUT_DIR)/%.c
-	@mkdir -p $(OBJ_DIR)
-	$(CC) $(COMPILE_FLGS) -c $^ -o $@
+	mkdir -p $(OBJ_DIR)
+	$(CC) $(COMPILE_FLGS) $(INCLUDE_FLGS) $(DEPEND_FLGS) -o $@ -c $<
 
 $(OBJ_DIR)/%.o:$(LEXER_DIR)/%.c
-	@mkdir -p $(OBJ_DIR)
-	$(CC) $(COMPILE_FLGS) -c $^ -o $@
+	mkdir -p $(OBJ_DIR)
+	$(CC) $(COMPILE_FLGS) $(INCLUDE_FLGS) $(DEPEND_FLGS) -o $@ -c $<
 
 $(OBJ_DIR)/%.o:$(PARSER_DIR)/%.c
-	@mkdir -p $(OBJ_DIR)
-	$(CC) $(COMPILE_FLGS) -c $^ -o $@
+	mkdir -p $(OBJ_DIR)
+	$(CC) $(COMPILE_FLGS) $(INCLUDE_FLGS) $(DEPEND_FLGS) -o $@ -c $<
 
 $(OBJ_DIR)/%.o:$(EXECUTER_DIR)/%.c
-	@mkdir -p $(OBJ_DIR)
-	$(CC) $(COMPILE_FLGS) -c $^ -o $@
+	mkdir -p $(OBJ_DIR)
+	$(CC) $(COMPILE_FLGS) $(INCLUDE_FLGS) $(DEPEND_FLGS) -o $@ -c $<
 
 $(OBJ_DIR)/%.o:$(PIPE_DIR)/%.c
-	@mkdir -p $(OBJ_DIR)
-	$(CC) $(COMPILE_FLGS) -c $^ -o $@
+	mkdir -p $(OBJ_DIR)
+	$(CC) $(COMPILE_FLGS) $(INCLUDE_FLGS) $(DEPEND_FLGS) -o $@ -c $<
 
 $(OBJ_DIR)/%.o:$(REDIRECT_DIR)/%.c
-	@mkdir -p $(OBJ_DIR)
-	$(CC) $(COMPILE_FLGS) -c $^ -o $@
+	mkdir -p $(OBJ_DIR)
+	$(CC) $(COMPILE_FLGS) $(INCLUDE_FLGS) $(DEPEND_FLGS) -o $@ -c $<
 
 $(OBJ_DIR)/%.o:$(ENVLST_DIR)/%.c
-	@mkdir -p $(OBJ_DIR)
-	$(CC) $(COMPILE_FLGS) -c $^ -o $@
+	mkdir -p $(OBJ_DIR)
+	$(CC) $(COMPILE_FLGS) $(INCLUDE_FLGS) $(DEPEND_FLGS) -o $@ -c $<
 
 $(OBJ_DIR)/%.o:$(UTILS_DIR)/%.c
-	@mkdir -p $(OBJ_DIR)
-	$(CC) $(COMPILE_FLGS) -c $^ -o $@
+	mkdir -p $(OBJ_DIR)
+	$(CC) $(COMPILE_FLGS) $(INCLUDE_FLGS) $(DEPEND_FLGS) -o $@ -c $<
 
 make-libft:
-	@make -C $(LIBFT_DIR)
+	make -C $(LIBFT_DIR)
 
 clean:
 	rm -rf $(OBJ_FILE_LIST)
-#	@make -C $(LIBFT_DIR) clean
+	rm -rf $(DEPEND_FILE_LIST)
+#	make -C $(LIBFT_DIR) fclean
 
 fclean:clean
 	rm -rf $(NAME)
 
-.PHONY:make-libft clean fclean
+re:fclean all
+
+.PHONY:all make-libft clean fclean re
+
+-include $(DEPEND_FILE_LIST)
