@@ -23,10 +23,10 @@ static void	set_token_table(char token_table[14][10])
 
 void	do_print_token(t_token *token, char token_table[14][10])
 {
-
 	while (token != NULL)
 	{
-		if (!ft_strncmp(token->value,"\n",2) && !ft_strncmp(token_table[token->type],"\n",2))
+		if (!ft_strncmp(token->value,"\n",2) && \
+			!ft_strncmp(token_table[token->type], "\n", 2))
 		{
 			printf("value:\e[33m%s\e[0m ", "new_line");
 			printf("token_type:\e[31m%s\e[0m\n", "new_line");

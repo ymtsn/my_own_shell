@@ -23,7 +23,7 @@ char	*get_path(t_envlst *envlst, t_cmdlst *cmdlst)
 	if (envlst == NULL)
 		return (NULL);
 	pathlist = ft_split(envlst->keyval + 5, ':');
-	while(*pathlist != NULL)
+	while (*pathlist != NULL)
 	{
 		rtn = ft_strjoin(*pathlist, path);
 		if (access(rtn, F_OK | X_OK) != -1)

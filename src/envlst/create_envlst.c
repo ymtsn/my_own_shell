@@ -29,7 +29,7 @@ t_envlst	*make_envvar(int type, char *keyval)
 	return (new);
 }
 
-t_envlst	*create_envlst()
+t_envlst	*create_envlst(void)
 {
 	t_envlst	*envlst;
 	t_envlst	*save;

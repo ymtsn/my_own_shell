@@ -9,7 +9,7 @@
 #include "libft.h"
 #include <stdio.h>
 
-static void	free_variables(char * src, t_token *tkn, t_cmdlst *cmd)
+static void	free_variables(char *src, t_token *tkn, t_cmdlst *cmd)
 {
 	free(src);
 	free_token(tkn);
