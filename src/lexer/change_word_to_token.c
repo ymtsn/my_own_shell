@@ -1,6 +1,7 @@
-#include "mysh_lexer.h"
+#include "mysh_def.h"
 #include "libft.h"
 #include <stdio.h>
+#include <stddef.h>
 
 static t_token	*create_new_token(t_lexer *lexer)
 {

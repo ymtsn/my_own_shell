@@ -1,10 +1,7 @@
-#include "mysh_lexer.h"
-#include "mysh_parser.h"
+#include "mysh_def.h"
 #include "mysh_utils.h"
 #include "libft.h"
-#include <unistd.h>
 #include <stdio.h>
-#include <stdlib.h>
 
 size_t	get_node_count(t_cmdlst *node, int find_type)
 {

@@ -1,5 +1,4 @@
-#include <stddef.h>
-#include "mysh_lexer.h"
+#include "mysh_def.h"
 #include "mysh_parser.h"
 #include <stdio.h>
 

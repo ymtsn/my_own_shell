@@ -1,6 +1,5 @@
+#include "mysh_def.h"
 #include <stdlib.h>
-#include "mysh_lexer.h"
-#include "mysh_parser.h"
 #include <stdio.h>
 
 void	free_cmdlst(t_cmdlst *cmdlst)

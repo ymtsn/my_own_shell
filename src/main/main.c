@@ -1,3 +1,4 @@
+#include "mysh_def.h"
 #include "mysh_envlst.h"
 #include "mysh_prompt.h"
 #include "mysh_get_input.h"
@@ -5,8 +6,6 @@
 #include "mysh_parser.h"
 #include "mysh_utils.h"
 #include "mysh_executer.h"
-#include "mysh_pipe.h"
-#include "mysh_redirect.h"
 #include "libft.h"
 #include <stdio.h>
 

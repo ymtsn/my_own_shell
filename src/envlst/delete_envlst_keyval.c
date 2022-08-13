@@ -1,3 +1,4 @@
+#include "mysh_def.h"
 #include "mysh_envlst.h"
 #include <stdlib.h>
 #include <stdio.h>

@@ -1,14 +1,10 @@
-#include "mysh_envlst.h"
-#include "mysh_lexer.h"
-#include "mysh_parser.h"
+#include "mysh_def.h"
 #include "mysh_executer.h"
 #include "mysh_pipe.h"
 #include "libft.h"
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
-#define READ_END	0
-#define WRITE_END	1
 
 static void	exec_pipe_execve(t_envlst *envlst, t_cmdlst *cmdlst, size_t cmd_count)
 {

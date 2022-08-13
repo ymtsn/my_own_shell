@@ -1,3 +1,4 @@
+#include "mysh_def.h"
 #include "mysh_lexer.h"
 #include "libft.h"
 #include <stdio.h>

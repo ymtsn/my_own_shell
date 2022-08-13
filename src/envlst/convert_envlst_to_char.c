@@ -1,5 +1,4 @@
-#include "mysh_envlst.h"
-#include "libft.h"
+#include "mysh_def.h"
 #include <stdlib.h>
 #include <stdio.h>
 

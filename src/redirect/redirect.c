@@ -1,13 +1,9 @@
-#include "mysh_lexer.h"
-#include "mysh_parser.h"
-#include "mysh_redirect.h"
+#include "mysh_def.h"
 #include "mysh_utils.h"
 #include "libft.h"
 #include <unistd.h>
 #include <stdio.h>
 #include <fcntl.h>
-#define TRUNC_FILE	0
-#define APPEND_FILE	1
 
 static void	redirect_in(char *io_number, char *filename)
 {

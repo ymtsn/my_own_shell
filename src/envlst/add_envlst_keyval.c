@@ -1,10 +1,8 @@
+#include <mysh_def.h>
 #include "mysh_envlst.h"
 #include "libft.h"
 #include <stdlib.h>
 #include <stdio.h>
-#define SUCCESS 1
-#define FAIL 0
-
 int	add_envlst_keyval(t_envlst *envlst, char *keyval)
 {
 	if (envlst == NULL || keyval == NULL)
