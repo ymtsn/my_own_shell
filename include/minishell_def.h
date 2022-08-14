@@ -1,5 +1,17 @@
-#ifndef MYSH_DEF_H
-# define MYSH_DEF_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell_def.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ymatsuna <ymatsuna@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/14 16:52:39 by ymatsuna          #+#    #+#             */
+/*   Updated: 2022/08/14 16:52:42 by ymatsuna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef MINISHELL_DEF_H
+# define MINISHELL_DEF_H
 # define LEXER_INIT 0
 # define WHITE_SPACE 1
 # define READ_WORD 2
@@ -23,12 +35,12 @@ typedef enum e_var_type{
 	exit_code,
 	head,
 }		t_var_type;
-typedef struct s_envlst{
+typedef struct s_symbol{
 	char				*keyval;
 	t_var_type			variable_type;
-	struct s_envlst		*prev;
-	struct s_envlst		*next;
-}				t_envlst;
+	struct s_symbol		*prev;
+	struct s_symbol		*next;
+}				t_symbol;
 /*	DLESS		'<<' */
 /*	DGREAT		 '>>' */
 /*	DGREATAND	 '>>&' */
@@ -37,9 +49,9 @@ typedef struct s_envlst{
 /*	GREATAND	 '>&' */
 /*	LESS		 '<' */
 /*	GREAT		 '>' */
-/*	ASSIGNMENT_WORD,	/* '=' */
-/*	NEWLINE		/* '\n' */
-/*	PIPE		/* '|' */
+/*	ASSIGNMENT_WORD '=' */
+/*	NEWLINE		'\n' */
+/*	PIPE		 '|' */
 typedef enum e_token_type{
 	DLESS,
 	DGREAT,

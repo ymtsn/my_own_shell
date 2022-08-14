@@ -1,5 +1,17 @@
-#include "mysh_def.h"
-#include "mysh_utils.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_argv.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ymatsuna <ymatsuna@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/14 16:54:52 by ymatsuna          #+#    #+#             */
+/*   Updated: 2022/08/14 16:54:54 by ymatsuna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell_def.h"
+#include "minishell_utils.h"
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>

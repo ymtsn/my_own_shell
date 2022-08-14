@@ -1,13 +1,25 @@
-#include "mysh_def.h"
-#include "mysh_envlst.h"
-#include "mysh_prompt.h"
-#include "mysh_get_input.h"
-#include "mysh_lexer.h"
-#include "mysh_parser.h"
-#include "mysh_utils.h"
-#include "mysh_executer.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ymatsuna <ymatsuna@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/14 16:56:18 by ymatsuna          #+#    #+#             */
+/*   Updated: 2022/08/14 16:56:20 by ymatsuna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell_def.h"
+#include "minishell_symbol.h"
+#include "minishell_prompt.h"
+#include "minishell_get_input.h"
+#include "minishell_lexer.h"
+#include "minishell_parser.h"
+#include "minishell_utils.h"
+#include "minishell_executer.h"
 #include "libft.h"
-#include <stdio.h>
+#include <stdlib.h>
 
 static void	free_variables(char *src, t_token *tkn, t_cmdlst *cmd)
 {
@@ -18,12 +30,12 @@ static void	free_variables(char *src, t_token *tkn, t_cmdlst *cmd)
 
 static void	cmdline_loop(void)
 {
-	t_envlst	*envlst;
+	t_symbol	*symbol;
 	char		*src;
 	t_token		*tokenlst;
 	t_cmdlst	*cmdlst;
 
-	envlst = create_envlst();
+	symbol = create_symbol();
 	while (1)
 	{
 		prompt();
@@ -35,7 +47,7 @@ static void	cmdline_loop(void)
 			if (check_debug_mode(cmdlst))
 				debug_print(tokenlst, cmdlst);
 			else
-				executer(envlst, cmdlst);
+				executer(symbol, cmdlst);
 			free_variables(src, tokenlst, cmdlst);
 		}
 	}

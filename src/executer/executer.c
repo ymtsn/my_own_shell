@@ -1,23 +1,35 @@
-#include "mysh_def.h"
-#include "mysh_envlst.h"
-#include "mysh_executer.h"
-#include "mysh_pipe.h"
-#include "mysh_redirect.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   executer.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ymatsuna <ymatsuna@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/14 16:54:43 by ymatsuna          #+#    #+#             */
+/*   Updated: 2022/08/14 16:54:45 by ymatsuna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell_def.h"
+#include "minishell_symbol.h"
+#include "minishell_executer.h"
+#include "minishell_pipe.h"
+#include "minishell_redirect.h"
 #include "libft.h"
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-void	my_execve(t_envlst *envlst, t_cmdlst *cmdlst)
+void	my_execve(t_symbol *symbol, t_cmdlst *cmdlst)
 {
 	char	**argv;
 	char	*path;
 	char	**my_environ;
 
 	exec_redirect(cmdlst);
-	path = get_path(envlst, cmdlst);
+	path = get_path(symbol, cmdlst);
 	argv = get_argv(cmdlst);
-	my_environ = convert_envlst_to_char(envlst);
+	my_environ = convert_symbol_to_char(symbol);
 	if (execve(path, argv, my_environ) == -1)
 	{
 		perror("execve error");
@@ -25,7 +37,7 @@ void	my_execve(t_envlst *envlst, t_cmdlst *cmdlst)
 	}
 }
 
-void	exec_simple_command(t_envlst *envlst, t_cmdlst *cmdlist)
+void	exec_simple_command(t_symbol *symbol, t_cmdlst *cmdlist)
 {
 	pid_t	pid;
 	int		status;
@@ -38,7 +50,7 @@ void	exec_simple_command(t_envlst *envlst, t_cmdlst *cmdlist)
 	}
 	else if (pid == 0)
 	{
-		my_execve(envlst, cmdlist);
+		my_execve(symbol, cmdlist);
 	}
 	if (waitpid(pid, &status, 0) < 0)
 	{
@@ -47,10 +59,10 @@ void	exec_simple_command(t_envlst *envlst, t_cmdlst *cmdlist)
 	}
 }
 
-void	executer(t_envlst *envlst, t_cmdlst *cmdlst)
+void	executer(t_symbol *symbol, t_cmdlst *cmdlst)
 {
 	if (cmdlst->node_type == SIMPLE_COMMAND)
-		exec_simple_command(envlst, cmdlst);
+		exec_simple_command(symbol, cmdlst);
 	if (cmdlst->node_type == PIPELINE)
-		exec_pipe(envlst, cmdlst);
+		exec_pipe(symbol, cmdlst);
 }

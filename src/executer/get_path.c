@@ -1,12 +1,24 @@
-#include "mysh_def.h"
-#include "mysh_envlst.h"
-#include "mysh_utils.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_path.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ymatsuna <ymatsuna@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/14 16:55:10 by ymatsuna          #+#    #+#             */
+/*   Updated: 2022/08/14 16:55:12 by ymatsuna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell_def.h"
+#include "minishell_symbol.h"
+#include "minishell_utils.h"
 #include "libft.h"
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-char	*get_path(t_envlst *envlst, t_cmdlst *cmdlst)
+char	*get_path(t_symbol *symbol, t_cmdlst *cmdlst)
 {
 	char	*path;
 	char	*find;
@@ -19,10 +31,10 @@ char	*get_path(t_envlst *envlst, t_cmdlst *cmdlst)
 	path = ft_strjoin("/", find);
 	if (path == NULL)
 		return (NULL);
-	envlst = lookup_envlst(envlst, "PATH");
-	if (envlst == NULL)
+	symbol = lookup_symbol(symbol, "PATH");
+	if (symbol == NULL)
 		return (NULL);
-	pathlist = ft_split(envlst->keyval + 5, ':');
+	pathlist = ft_split(symbol->keyval + 5, ':');
 	while (*pathlist != NULL)
 	{
 		rtn = ft_strjoin(*pathlist, path);

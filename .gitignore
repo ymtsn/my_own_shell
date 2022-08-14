@@ -1,7 +1,7 @@
 *.o
 *.a
 *.d
-mysh
+minishell
 test
 .vscode
 .md

@@ -1,5 +1,18 @@
-#include "mysh_def.h"
-#include "mysh_lexer.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ymatsuna <ymatsuna@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/14 16:56:00 by ymatsuna          #+#    #+#             */
+/*   Updated: 2022/08/14 16:56:02 by ymatsuna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell_def.h"
+#include "minishell_lexer.h"
+#include "libft.h"
 
 void	set_ionumber_len(t_lexer *lexer, int token_type)
 {

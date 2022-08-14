@@ -1,8 +1,20 @@
-#include "mysh_def.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ymatsuna <ymatsuna@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/14 16:57:03 by ymatsuna          #+#    #+#             */
+/*   Updated: 2022/08/14 16:57:06 by ymatsuna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell_def.h"
 #include <stdio.h>
 #include <stdlib.h>
 
-t_cmdlst	*create_new_node(e_node_type n_type, e_token_type t_type)
+t_cmdlst	*create_new_node(t_node_type n_type, t_token_type t_type)
 {
 	t_cmdlst	*node;
 

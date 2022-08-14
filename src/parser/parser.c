@@ -1,5 +1,17 @@
-#include "mysh_def.h"
-#include "mysh_parser.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ymatsuna <ymatsuna@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/14 16:57:13 by ymatsuna          #+#    #+#             */
+/*   Updated: 2022/08/14 16:57:15 by ymatsuna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell_def.h"
+#include "minishell_parser.h"
 #include <stdio.h>
 
 t_cmdlst	*simple_command(t_token **token)
