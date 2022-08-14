@@ -1,5 +1,17 @@
-#include "mysh_def.h"
-#include "mysh_parser.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_heredoc.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ymatsuna <ymatsuna@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/14 16:56:36 by ymatsuna          #+#    #+#             */
+/*   Updated: 2022/08/14 16:56:38 by ymatsuna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell_def.h"
+#include "minishell_parser.h"
 
 static t_cmdlst	*here_end(t_token *token, int suffix_flg)
 {
