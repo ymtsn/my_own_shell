@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_token.c                                       :+:      :+:    :+:   */
+/*   delete_symbol_keyval.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ymatsuna <ymatsuna@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/14 16:55:41 by ymatsuna          #+#    #+#             */
-/*   Updated: 2022/08/14 16:55:43 by ymatsuna         ###   ########.fr       */
+/*   Created: 2022/08/14 16:58:58 by ymatsuna          #+#    #+#             */
+/*   Updated: 2022/08/14 16:58:59 by ymatsuna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_def.h"
-#include "libft.h"
+#include "minishell_symbol.h"
+#include <stdlib.h>
+#include <stdio.h>
 
-void	free_token(t_token *token)
+void	delete_symbol_keyval(t_symbol *symbol, char *find)
 {
-	t_token	*buf;
+	t_symbol	*target;
 
-	if (token == NULL)
+	if (symbol == NULL || find == NULL)
 		return ;
-	while (token != NULL)
-	{
-		buf = token;
-		token = token->next;
-		free(buf->value);
-		free(buf);
-	}
+	target = lookup_symbol(symbol, find);
+	if (target == NULL)
+		return ;
+	if (target->prev != NULL)
+		target->prev->next = target->next;
+	if (target->next != NULL)
+		target->next->prev = target->prev;
+	free(target->keyval);
+	free(target);
 }

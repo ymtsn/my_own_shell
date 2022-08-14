@@ -1,5 +1,17 @@
-#include "mysh_def.h"
-#include "mysh_utils.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   debug_token.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ymatsuna <ymatsuna@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/14 17:01:00 by ymatsuna          #+#    #+#             */
+/*   Updated: 2022/08/14 17:01:02 by ymatsuna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell_def.h"
+#include "minishell_utils.h"
 #include "libft.h"
 #include <stdio.h>
 
@@ -25,7 +37,7 @@ void	do_print_token(t_token *token, char token_table[14][10])
 {
 	while (token != NULL)
 	{
-		if (!ft_strncmp(token->value,"\n",2) && \
+		if (!ft_strncmp(token->value, "\n", 2) && \
 			!ft_strncmp(token_table[token->type], "\n", 2))
 		{
 			printf("value:\e[33m%s\e[0m ", "new_line");

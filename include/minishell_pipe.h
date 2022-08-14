@@ -1,29 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_token.c                                       :+:      :+:    :+:   */
+/*   minishell_pipe.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ymatsuna <ymatsuna@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/14 16:55:41 by ymatsuna          #+#    #+#             */
-/*   Updated: 2022/08/14 16:55:43 by ymatsuna         ###   ########.fr       */
+/*   Created: 2022/08/14 16:53:50 by ymatsuna          #+#    #+#             */
+/*   Updated: 2022/08/14 16:53:52 by ymatsuna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell_def.h"
-#include "libft.h"
-
-void	free_token(t_token *token)
-{
-	t_token	*buf;
-
-	if (token == NULL)
-		return ;
-	while (token != NULL)
-	{
-		buf = token;
-		token = token->next;
-		free(buf->value);
-		free(buf);
-	}
-}
+#ifndef MINISHELL_PIPE_H
+# define MINISHELL_PIPE_H
+void	exec_pipe(t_symbol *symbol, t_cmdlst *cmdlst);
+#endif

@@ -1,4 +1,16 @@
-#include "mysh_def.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   change_word_to_token.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ymatsuna <ymatsuna@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/14 16:55:31 by ymatsuna          #+#    #+#             */
+/*   Updated: 2022/08/14 16:55:33 by ymatsuna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell_def.h"
 #include "libft.h"
 #include <stdio.h>
 #include <stddef.h>
@@ -26,6 +38,8 @@ void	change_word_to_token(t_lexer *lexer, t_token **token)
 {
 	t_token	*buf;
 
+	if (lexer->state == STRING_END)
+		return ;
 	if (*token == NULL)
 	{
 		*token = create_new_token(lexer);

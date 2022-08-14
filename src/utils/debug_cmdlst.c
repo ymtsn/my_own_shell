@@ -1,5 +1,17 @@
-#include "mysh_def.h"
-#include "mysh_utils.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   debug_cmdlst.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ymatsuna <ymatsuna@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/14 17:00:45 by ymatsuna          #+#    #+#             */
+/*   Updated: 2022/08/14 17:00:47 by ymatsuna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell_def.h"
+#include "minishell_utils.h"
 #include "libft.h"
 #include <stdlib.h>
 #include <stdio.h>
