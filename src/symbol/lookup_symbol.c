@@ -6,7 +6,7 @@
 /*   By: ymatsuna <ymatsuna@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 16:59:07 by ymatsuna          #+#    #+#             */
-/*   Updated: 2022/08/14 16:59:08 by ymatsuna         ###   ########.fr       */
+/*   Updated: 2022/08/14 22:06:06 by ymatsuna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_symbol	*lookup_symbol(t_symbol *symbol, char *find)
 	while (symbol != NULL)
 	{
 		chrpos = get_keylen(symbol->keyval);
-		if (symbol->keyval != NULL)
+		if (symbol->keyval != NULL && chrpos != 0)
 			if (!ft_strncmp(symbol->keyval, find, chrpos))
 				return (symbol);
 		symbol = symbol->next;

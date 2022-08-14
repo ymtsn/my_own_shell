@@ -6,7 +6,7 @@
 /*   By: ymatsuna <ymatsuna@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 16:58:42 by ymatsuna          #+#    #+#             */
-/*   Updated: 2022/08/14 16:58:44 by ymatsuna         ###   ########.fr       */
+/*   Updated: 2022/08/14 22:12:11 by ymatsuna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_symbol	*make_envvar(int type, char *keyval)
 	}
 	new->prev = NULL;
 	new->next = NULL;
+	new->keyval = NULL;
 	new->variable_type = type;
 	if (keyval == NULL)
 		return (new);

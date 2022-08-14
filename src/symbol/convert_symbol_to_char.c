@@ -6,7 +6,7 @@
 /*   By: ymatsuna <ymatsuna@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 16:58:34 by ymatsuna          #+#    #+#             */
-/*   Updated: 2022/08/14 16:58:36 by ymatsuna         ###   ########.fr       */
+/*   Updated: 2022/08/14 22:09:27 by ymatsuna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ char	**convert_symbol_to_char(t_symbol *symbol)
 	char	**rtn;
 	char	**save;
 
-	total_list = 0;
 	total_list = get_totalsize(symbol);
+	if (total_list == 0)
+		return (NULL);
 	rtn = malloc(sizeof(char **) * (total_list + 1));
 	if (rtn == NULL)
 	{
@@ -52,6 +53,6 @@ char	**convert_symbol_to_char(t_symbol *symbol)
 		}
 		symbol = symbol->next;
 	}
-	rtn = NULL;
+	*rtn = NULL;
 	return (save);
 }
