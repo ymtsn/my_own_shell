@@ -6,7 +6,7 @@
 /*   By: ymatsuna <ymatsuna@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 16:54:52 by ymatsuna          #+#    #+#             */
-/*   Updated: 2022/08/14 16:54:54 by ymatsuna         ###   ########.fr       */
+/*   Updated: 2022/08/14 22:24:10 by ymatsuna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	**get_argv(t_cmdlst *cmdlst)
 	char		**argv;
 
 	node_count = get_node_count(cmdlst, ARG_WORD);
-	argv = malloc(sizeof(char **) * (node_count + 1));
+	argv = malloc(sizeof(char **) * (node_count + 2));
 	if (argv == NULL)
 	{
 		perror("malloc fail at get_argv");
