@@ -2,7 +2,7 @@ NAME 				=	minishell
 
 CC 					=	gcc
 COMPILE_FLGS		=	-Wall -Werror -Wextra $(DEBUG_FLGS)
-DEBUG_FLGS			=	-g
+DEBUG_FLGS			=	
 INCLUDE_DIR			=	./include
 INCLUDE_FLGS		=	-I $(INCLUDE_DIR)
 DEPEND_FLGS			=	-MMD -MP
@@ -138,7 +138,7 @@ make-libft:
 clean:
 	rm -rf $(OBJ_FILE_LIST)
 	rm -rf $(DEPEND_FILE_LIST)
-#	make -C $(LIBFT_DIR) fclean
+	make -C $(LIBFT_DIR) fclean
 
 fclean:clean
 	rm -rf $(NAME)
@@ -146,8 +146,11 @@ fclean:clean
 re:fclean all
 
 norm:
-	norminette src include | grep "Error" || true
+	norminette | grep "Error" || true
 
-.PHONY:all make-libft clean fclean re norm
+debug:
+	make DEBUG_FLGS="-g -fsanitize=address -fsanitize=undefined -fsanitize=integer"
+
+.PHONY:all make-libft clean fclean re norm debug
 
 -include $(DEPEND_FILE_LIST)
